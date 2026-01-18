@@ -226,8 +226,8 @@ export function ConstellationBackground() {
             twinkleOffset: Math.random() * Math.PI * 2,
             // Each star drifts in a small circular/elliptical path
             driftAngle: Math.random() * Math.PI * 2,
-            driftSpeed: Math.random() * 0.0003 + 0.0001,
-            driftRadius: Math.random() * 20 + 10,
+            driftSpeed: Math.random() * 0.0008 + 0.0004,
+            driftRadius: Math.random() * 35 + 18,
           });
         }
       }
@@ -283,8 +283,8 @@ export function ConstellationBackground() {
     timeRef.current += 1;
 
     // Smooth mouse position interpolation for fluid response
-    smoothMouseRef.current.x += (mouse.x - smoothMouseRef.current.x) * 0.08;
-    smoothMouseRef.current.y += (mouse.y - smoothMouseRef.current.y) * 0.08;
+    smoothMouseRef.current.x += (mouse.x - smoothMouseRef.current.x) * 0.12;
+    smoothMouseRef.current.y += (mouse.y - smoothMouseRef.current.y) * 0.12;
     const smoothMouse = smoothMouseRef.current;
 
     // Update star positions with autonomous drift + mouse parallax
@@ -302,18 +302,18 @@ export function ConstellationBackground() {
       const dx = smoothMouse.x - star.baseX;
       const dy = smoothMouse.y - star.baseY;
       const distance = Math.sqrt(dx * dx + dy * dy);
-      const maxInfluence = 250;
+      const maxInfluence = 300;
 
       if (distance < maxInfluence && distance > 0) {
-        // Subtle shift away from mouse
-        const influence = (1 - distance / maxInfluence) * 12;
+        // Subtle shift away from mouse - stronger effect
+        const influence = (1 - distance / maxInfluence) * 20;
         targetX -= (dx / distance) * influence;
         targetY -= (dy / distance) * influence;
       }
 
-      // Smooth interpolation to target position
-      star.x += (targetX - star.x) * 0.04;
-      star.y += (targetY - star.y) * 0.04;
+      // Smooth interpolation to target position - slightly faster response
+      star.x += (targetX - star.x) * 0.06;
+      star.y += (targetY - star.y) * 0.06;
     });
 
     // Draw connections first (behind stars) - using pre-computed constellation lines
@@ -330,16 +330,16 @@ export function ConstellationBackground() {
       const connDistance = Math.sqrt(connDx * connDx + connDy * connDy);
 
       // Dynamic opacity based on distance and time
-      const distanceFactor = Math.max(0, 1 - connDistance / 200);
-      const pulse = Math.sin(timeRef.current * 0.008 + idx * 0.3) * 0.15 + 0.85;
-      const opacity = distanceFactor * 0.12 * pulse;
+      const distanceFactor = Math.max(0, 1 - connDistance / 220);
+      const pulse = Math.sin(timeRef.current * 0.01 + idx * 0.5) * 0.2 + 0.8;
+      const opacity = distanceFactor * 0.25 * pulse;
 
-      if (opacity > 0.01) {
+      if (opacity > 0.02) {
         ctx.beginPath();
         ctx.moveTo(star.x, star.y);
         ctx.lineTo(other.x, other.y);
-        ctx.strokeStyle = `rgba(140, 110, 220, ${opacity})`;
-        ctx.lineWidth = 0.6;
+        ctx.strokeStyle = `rgba(150, 120, 230, ${opacity})`;
+        ctx.lineWidth = 0.8;
         ctx.stroke();
       }
     });
