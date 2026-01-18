@@ -19,11 +19,11 @@ export function EmailSignup() {
     e.preventDefault();
 
     // For MVP: Store in localStorage with Zod validation
-    const raw = localStorage.getItem('capsule-signups');
+    const raw = localStorage.getItem('sentinel-signups');
     const parsed = emailSignupSchema.safeParse(raw ? JSON.parse(raw) : []);
     const emails = parsed.success ? parsed.data : [];
     emails.push({ email, timestamp: new Date().toISOString() });
-    localStorage.setItem('capsule-signups', JSON.stringify(emails));
+    localStorage.setItem('sentinel-signups', JSON.stringify(emails));
 
     setStatus('success');
     setEmail('');

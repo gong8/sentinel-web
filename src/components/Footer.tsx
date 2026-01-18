@@ -125,7 +125,7 @@ export function Footer() {
               <DiscordIcon className="h-4 w-4" />
             </a>
             <a
-              href="https://github.com"
+              href="https://github.com/sentinel-home"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-lg text-muted-foreground hover:text-brand-400 hover:bg-brand-500/10 transition-all"
