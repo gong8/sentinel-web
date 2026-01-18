@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs cat:*)",
+      "WebFetch(domain:api.fontshare.com)",
+      "WebSearch",
+      "Bash(curl:*)",
+      "Bash(powershell -Command \"Invoke-WebRequest -Uri ''https://api.fontshare.com/v2/css?f[]=nohemi@400,500,600,700&display=swap'' -UseBasicParsing | Select-Object -ExpandProperty Content\")",
+      "Bash(powershell -Command \"\\(Invoke-WebRequest -Uri ''https://api.fontshare.com/v2/css?f[]=nohemi@400,500,600,700&display=swap'' -UseBasicParsing\\).Content\")",
+      "Bash(powershell -Command \"$urls = @{''Nohemi-Regular.woff2''=''https://cdn.fontshare.com/wf/ZYPPDQVQEXVVUVJYQT3EWVG4GKQGQXRC/RJI22UKUXG7XPRVMJQM6VPGAKQK4J2ZH/DXGSBFFMPX7OAVDQDWTPGDQ73RJVWLZ7.woff2'';''Nohemi-Medium.woff2''=''https://cdn.fontshare.com/wf/ZYPPDQVQEXVVUVJYQT3EWVG4GKQGQXRC/EGCZGHJJVGPNK5EB47L4YKXMKSLMVLUI/UCGZ6VCBTAHX35SWGNBMRFWUMJJHQ6QZ.woff2'';''Nohemi-SemiBold.woff2''=''https://cdn.fontshare.com/wf/ZYPPDQVQEXVVUVJYQT3EWVG4GKQGQXRC/N4TDQKXR3ZXHONP2SMCN33C7SLPQXFLZ/V35F6FD2V2L3K33UYXQGGQ7ZEK2IA6W5.woff2'';''Nohemi-Bold.woff2''=''https://cdn.fontshare.com/wf/ZYPPDQVQEXVVUVJYQT3EWVG4GKQGQXRC/BQHPVDTK3YT5SVOOJJVL3OMW4RK2EYS3/R7YVA3LWPWJP3MU7RKRZWPLPTBNQXSED.woff2''}; foreach\\($file in $urls.Keys\\){Invoke-WebRequest -Uri $urls[$file] -OutFile $file}\")",
+      "Bash(powershell -Command \"Invoke-WebRequest -Uri ''https://cdn.fontshare.com/wf/ZYPPDQVQEXVVUVJYQT3EWVG4GKQGQXRC/RJI22UKUXG7XPRVMJQM6VPGAKQK4J2ZH/DXGSBFFMPX7OAVDQDWTPGDQ73RJVWLZ7.woff2'' -OutFile ''Nohemi-Regular.woff2''\")",
+      "WebFetch(domain:cdn.jsdelivr.net)",
+      "WebFetch(domain:www.jsdelivr.com)",
+      "Bash(powershell -Command \"Invoke-WebRequest -Uri ''https://cdn.jsdelivr.net/npm/@tamagui/font-nohemi@latest/files/Nohemi-Regular.woff2'' -OutFile ''Nohemi-Regular.woff2''\")",
+      "Bash(powershell -Command \"\\(Invoke-WebRequest -Uri ''https://data.jsdelivr.com/v1/packages/npm/@tamagui/font-nohemi''\\).Content\")",
+      "WebFetch(domain:unpkg.com)",
+      "WebFetch(domain:app.unpkg.com)",
+      "Bash(powershell -Command \"Invoke-WebRequest -Uri ''https://unpkg.com/@tamagui/font-nohemi@latest/fonts/Nohemi-Regular.ttf'' -OutFile ''Nohemi-Regular.ttf''\")",
+      "Bash(powershell -Command \"Invoke-WebRequest -Uri ''https://unpkg.com/@tamagui/font-nohemi@latest/fonts/Nohemi-Medium.ttf'' -OutFile ''Nohemi-Medium.ttf''\")",
+      "Bash(powershell -Command \"Invoke-WebRequest -Uri ''https://unpkg.com/@tamagui/font-nohemi@latest/fonts/Nohemi-SemiBold.ttf'' -OutFile ''Nohemi-SemiBold.ttf''\")",
+      "Bash(powershell -Command \"Invoke-WebRequest -Uri ''https://unpkg.com/@tamagui/font-nohemi@latest/fonts/Nohemi-Bold.ttf'' -OutFile ''Nohemi-Bold.ttf''\")",
+      "Bash(dir \"C:\\\\Users\\\\jonat\\\\Programming\\\\Sentinel-Web\\\\sentinel-web\\\\public\\\\fonts\")",
+      "Bash(npm run build:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx typescript --noEmit)",
+      "Bash(node node_modules/typescript/bin/tsc:*)",
+      "Bash(timeout:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(dir:*)"
+    ]
+  }
+}

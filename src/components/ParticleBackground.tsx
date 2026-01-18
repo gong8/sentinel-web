@@ -170,7 +170,7 @@ export function ParticleBackground({
   );
 }
 
-// Subtle constellation background with gentle mouse interaction
+// Subtle constellation background with gentle mouse interaction and autonomous movement
 interface Star {
   baseX: number;
   baseY: number;
@@ -180,27 +180,39 @@ interface Star {
   opacity: number;
   twinkleSpeed: number;
   twinkleOffset: number;
+  // Autonomous drift properties
+  driftAngle: number;
+  driftSpeed: number;
+  driftRadius: number;
+}
+
+// Pre-computed connections for consistent constellation patterns
+interface Connection {
+  from: number;
+  to: number;
 }
 
 export function ConstellationBackground() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const starsRef = useRef<Star[]>([]);
+  const connectionsRef = useRef<Connection[]>([]);
   const mouseRef = useRef({ x: -1000, y: -1000 });
+  const smoothMouseRef = useRef({ x: -1000, y: -1000 });
   const animationRef = useRef<number | undefined>(undefined);
   const timeRef = useRef(0);
 
   const initStars = useCallback((width: number, height: number) => {
     const stars: Star[] = [];
     // Create a grid-based distribution for balanced placement
-    const cols = 8;
-    const rows = 6;
+    const cols = 10;
+    const rows = 7;
     const cellWidth = width / cols;
     const cellHeight = height / rows;
 
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
         // Add some randomness within each cell, but skip some cells for organic feel
-        if (Math.random() > 0.4) {
+        if (Math.random() > 0.35) {
           const baseX = col * cellWidth + Math.random() * cellWidth * 0.8 + cellWidth * 0.1;
           const baseY = row * cellHeight + Math.random() * cellHeight * 0.8 + cellHeight * 0.1;
           stars.push({
@@ -208,15 +220,53 @@ export function ConstellationBackground() {
             baseY,
             x: baseX,
             y: baseY,
-            size: Math.random() * 1.5 + 0.5,
-            opacity: Math.random() * 0.4 + 0.2,
-            twinkleSpeed: Math.random() * 0.02 + 0.01,
+            size: Math.random() * 1.8 + 0.6,
+            opacity: Math.random() * 0.5 + 0.25,
+            twinkleSpeed: Math.random() * 0.015 + 0.008,
             twinkleOffset: Math.random() * Math.PI * 2,
+            // Each star drifts in a small circular/elliptical path
+            driftAngle: Math.random() * Math.PI * 2,
+            driftSpeed: Math.random() * 0.0003 + 0.0001,
+            driftRadius: Math.random() * 20 + 10,
           });
         }
       }
     }
     starsRef.current = stars;
+
+    // Pre-compute some persistent connections for constellation effect
+    const connections: Connection[] = [];
+    const connectionDistance = 160;
+
+    for (let i = 0; i < stars.length; i++) {
+      // Each star connects to 1-3 nearby stars for a constellation look
+      const nearbyStars: { index: number; distance: number }[] = [];
+
+      for (let j = 0; j < stars.length; j++) {
+        if (i === j) continue;
+        const dx = stars[i].baseX - stars[j].baseX;
+        const dy = stars[i].baseY - stars[j].baseY;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < connectionDistance) {
+          nearbyStars.push({ index: j, distance: dist });
+        }
+      }
+
+      // Sort by distance and connect to closest 1-2 stars
+      nearbyStars.sort((a, b) => a.distance - b.distance);
+      const connectCount = Math.min(Math.floor(Math.random() * 2) + 1, nearbyStars.length);
+
+      for (let k = 0; k < connectCount; k++) {
+        const j = nearbyStars[k].index;
+        // Avoid duplicate connections
+        if (i < j && !connections.some(c => (c.from === i && c.to === j) || (c.from === j && c.to === i))) {
+          connections.push({ from: i, to: j });
+        }
+      }
+    }
+
+    connectionsRef.current = connections;
   }, []);
 
   const animate = useCallback(() => {
@@ -228,77 +278,98 @@ export function ConstellationBackground() {
     ctx.clearRect(0, 0, width, height);
 
     const stars = starsRef.current;
+    const connections = connectionsRef.current;
     const mouse = mouseRef.current;
     timeRef.current += 1;
 
-    // Update star positions based on mouse (gentle parallax effect)
+    // Smooth mouse position interpolation for fluid response
+    smoothMouseRef.current.x += (mouse.x - smoothMouseRef.current.x) * 0.08;
+    smoothMouseRef.current.y += (mouse.y - smoothMouseRef.current.y) * 0.08;
+    const smoothMouse = smoothMouseRef.current;
+
+    // Update star positions with autonomous drift + mouse parallax
     stars.forEach((star) => {
-      const dx = mouse.x - star.baseX;
-      const dy = mouse.y - star.baseY;
+      // Autonomous circular drift movement
+      star.driftAngle += star.driftSpeed;
+      const driftX = Math.cos(star.driftAngle) * star.driftRadius;
+      const driftY = Math.sin(star.driftAngle * 0.7) * star.driftRadius * 0.6; // Slight ellipse
+
+      // Calculate target position (base + drift)
+      let targetX = star.baseX + driftX;
+      let targetY = star.baseY + driftY;
+
+      // Mouse influence - gentle parallax effect
+      const dx = smoothMouse.x - star.baseX;
+      const dy = smoothMouse.y - star.baseY;
       const distance = Math.sqrt(dx * dx + dy * dy);
-      const maxInfluence = 300;
+      const maxInfluence = 250;
 
       if (distance < maxInfluence && distance > 0) {
-        // Gentle shift away from mouse
-        const influence = (1 - distance / maxInfluence) * 15;
-        star.x = star.baseX - (dx / distance) * influence;
-        star.y = star.baseY - (dy / distance) * influence;
-      } else {
-        // Slowly return to base position
-        star.x += (star.baseX - star.x) * 0.05;
-        star.y += (star.baseY - star.y) * 0.05;
+        // Subtle shift away from mouse
+        const influence = (1 - distance / maxInfluence) * 12;
+        targetX -= (dx / distance) * influence;
+        targetY -= (dy / distance) * influence;
+      }
+
+      // Smooth interpolation to target position
+      star.x += (targetX - star.x) * 0.04;
+      star.y += (targetY - star.y) * 0.04;
+    });
+
+    // Draw connections first (behind stars) - using pre-computed constellation lines
+    ctx.lineCap = 'round';
+    ctx.lineJoin = 'round';
+
+    connections.forEach((conn, idx) => {
+      const star = stars[conn.from];
+      const other = stars[conn.to];
+      if (!star || !other) return;
+
+      const connDx = star.x - other.x;
+      const connDy = star.y - other.y;
+      const connDistance = Math.sqrt(connDx * connDx + connDy * connDy);
+
+      // Dynamic opacity based on distance and time
+      const distanceFactor = Math.max(0, 1 - connDistance / 200);
+      const pulse = Math.sin(timeRef.current * 0.008 + idx * 0.3) * 0.15 + 0.85;
+      const opacity = distanceFactor * 0.12 * pulse;
+
+      if (opacity > 0.01) {
+        ctx.beginPath();
+        ctx.moveTo(star.x, star.y);
+        ctx.lineTo(other.x, other.y);
+        ctx.strokeStyle = `rgba(140, 110, 220, ${opacity})`;
+        ctx.lineWidth = 0.6;
+        ctx.stroke();
       }
     });
 
-    // Draw connections first (behind stars)
-    const connectionDistance = 120;
-    ctx.lineCap = 'round';
-
-    for (let i = 0; i < stars.length; i++) {
-      const star = stars[i];
-      for (let j = i + 1; j < stars.length; j++) {
-        const other = stars[j];
-        const connDx = star.x - other.x;
-        const connDy = star.y - other.y;
-        const connDistance = Math.sqrt(connDx * connDx + connDy * connDy);
-
-        if (connDistance < connectionDistance) {
-          const baseOpacity = (1 - connDistance / connectionDistance) * 0.08;
-          // Add subtle pulse to connections
-          const pulse = Math.sin(timeRef.current * 0.01 + i * 0.5) * 0.02 + 1;
-          const opacity = baseOpacity * pulse;
-
-          ctx.beginPath();
-          ctx.moveTo(star.x, star.y);
-          ctx.lineTo(other.x, other.y);
-          ctx.strokeStyle = `rgba(120, 80, 200, ${opacity})`;
-          ctx.lineWidth = 0.5;
-          ctx.stroke();
-        }
-      }
-    }
-
-    // Draw stars with twinkle effect
+    // Draw stars with smooth twinkle effect
     stars.forEach((star) => {
-      const twinkle = Math.sin(timeRef.current * star.twinkleSpeed + star.twinkleOffset) * 0.3 + 0.7;
-      const currentOpacity = star.opacity * twinkle;
-      const currentSize = star.size * (twinkle * 0.3 + 0.7);
+      // Smoother twinkle using multiple sine waves
+      const twinkle1 = Math.sin(timeRef.current * star.twinkleSpeed + star.twinkleOffset);
+      const twinkle2 = Math.sin(timeRef.current * star.twinkleSpeed * 0.5 + star.twinkleOffset * 1.5);
+      const twinkle = (twinkle1 * 0.6 + twinkle2 * 0.4) * 0.25 + 0.75;
 
-      // Outer glow
-      const gradient = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, currentSize * 3);
-      gradient.addColorStop(0, `rgba(140, 100, 220, ${currentOpacity * 0.8})`);
-      gradient.addColorStop(0.5, `rgba(120, 80, 200, ${currentOpacity * 0.3})`);
-      gradient.addColorStop(1, 'rgba(120, 80, 200, 0)');
+      const currentOpacity = star.opacity * twinkle;
+      const currentSize = star.size * (twinkle * 0.2 + 0.8);
+
+      // Outer glow - softer and larger
+      const gradient = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, currentSize * 4);
+      gradient.addColorStop(0, `rgba(160, 130, 240, ${currentOpacity * 0.9})`);
+      gradient.addColorStop(0.3, `rgba(140, 110, 220, ${currentOpacity * 0.4})`);
+      gradient.addColorStop(0.7, `rgba(120, 90, 200, ${currentOpacity * 0.1})`);
+      gradient.addColorStop(1, 'rgba(120, 90, 200, 0)');
 
       ctx.beginPath();
-      ctx.arc(star.x, star.y, currentSize * 3, 0, Math.PI * 2);
+      ctx.arc(star.x, star.y, currentSize * 4, 0, Math.PI * 2);
       ctx.fillStyle = gradient;
       ctx.fill();
 
-      // Core dot
+      // Core dot - brighter
       ctx.beginPath();
       ctx.arc(star.x, star.y, currentSize, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(180, 150, 255, ${currentOpacity})`;
+      ctx.fillStyle = `rgba(200, 180, 255, ${currentOpacity * 1.1})`;
       ctx.fill();
     });
 
@@ -351,7 +422,7 @@ export function ConstellationBackground() {
       className="absolute inset-0 pointer-events-auto"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ opacity: 0.7 }}
+      style={{ opacity: 0.75 }}
     />
   );
 }

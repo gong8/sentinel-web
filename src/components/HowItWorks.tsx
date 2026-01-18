@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState, useMemo } from 'react';
 import { Bot, Shield, Server, Users, Check, Activity, Lock } from 'lucide-react';
 import { Card } from './ui/card';
-import { Logo } from './Logo';
 
 function SyntaxHighlightedJSON({ code }: { code: string }) {
   const highlighted = useMemo(() => {
@@ -324,12 +323,12 @@ function ArchitectureDiagram() {
 
                 {/* Main capsule box */}
                 <div className="relative rounded-2xl border-2 border-primary/50 bg-gradient-to-b from-card via-card to-card/80 px-8 py-6 shadow-2xl shadow-primary/20">
-                  {/* Sentinel logo with glow */}
+                  {/* Sentinel shield icon with glow */}
                   <div className="flex flex-col items-center gap-3">
                     <div className="relative">
                       <div className="absolute inset-0 bg-primary/30 blur-lg rounded-full" />
-                      <div className="relative p-2 rounded-xl bg-primary/10 border border-primary/20">
-                        <Logo size="md" withGlow className="drop-shadow-[0_0_8px_rgba(78,0,255,0.6)]" />
+                      <div className="relative p-3 rounded-xl bg-primary/10 border border-primary/20">
+                        <Shield className="w-8 h-8 text-primary drop-shadow-[0_0_8px_rgba(78,0,255,0.6)]" />
                       </div>
                     </div>
 
@@ -417,7 +416,7 @@ function ArchitectureDiagram() {
                   <div className="relative">
                     <div className="absolute inset-0 bg-primary/30 blur-lg rounded-full" />
                     <div className="relative p-2 rounded-xl bg-primary/10 border border-primary/20">
-                      <Logo size="sm" withGlow className="drop-shadow-[0_0_8px_rgba(78,0,255,0.6)]" />
+                      <Shield className="w-6 h-6 text-primary drop-shadow-[0_0_8px_rgba(78,0,255,0.6)]" />
                     </div>
                   </div>
                   <div className="text-center">
@@ -593,31 +592,71 @@ function StatusPill({
 function ConnectorLine({ direction, delay }: { direction: 'right' | 'left'; delay: number }) {
   return (
     <div className="relative h-0.5 w-full">
-      {/* Base line */}
-      <div className="absolute inset-0 bg-gradient-to-r from-border/60 via-primary/40 to-border/60 rounded-full" />
+      {/* Base line with gradient */}
+      <div className="absolute inset-0 bg-gradient-to-r from-border/50 via-primary/30 to-border/50 rounded-full" />
 
-      {/* Animated dot */}
+      {/* Animated dot with glow trail */}
       <div
-        className="absolute top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-primary shadow-sm shadow-primary/50"
+        className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full"
         style={{
+          background: 'radial-gradient(circle, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.6) 50%, transparent 100%)',
+          boxShadow: '0 0 8px hsl(var(--primary) / 0.6), 0 0 12px hsl(var(--primary) / 0.3)',
           animation:
             direction === 'right'
-              ? `connectorDotRight 2s ease-in-out infinite`
-              : `connectorDotLeft 2s ease-in-out infinite`,
+              ? `connectorDotRight 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite`
+              : `connectorDotLeft 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite`,
           animationDelay: `${delay}s`,
         }}
       />
 
       <style>{`
         @keyframes connectorDotRight {
-          0% { left: 0; opacity: 0.3; }
-          50% { opacity: 1; }
-          100% { left: calc(100% - 8px); opacity: 0.3; }
+          0% {
+            left: -4px;
+            opacity: 0;
+            transform: translateY(-50%) scale(0.6);
+          }
+          10% {
+            opacity: 0.6;
+            transform: translateY(-50%) scale(0.9);
+          }
+          50% {
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
+          }
+          90% {
+            opacity: 0.6;
+            transform: translateY(-50%) scale(0.9);
+          }
+          100% {
+            left: calc(100% - 6px);
+            opacity: 0;
+            transform: translateY(-50%) scale(0.6);
+          }
         }
         @keyframes connectorDotLeft {
-          0% { right: 0; opacity: 0.3; }
-          50% { opacity: 1; }
-          100% { right: calc(100% - 8px); opacity: 0.3; }
+          0% {
+            right: -4px;
+            opacity: 0;
+            transform: translateY(-50%) scale(0.6);
+          }
+          10% {
+            opacity: 0.6;
+            transform: translateY(-50%) scale(0.9);
+          }
+          50% {
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
+          }
+          90% {
+            opacity: 0.6;
+            transform: translateY(-50%) scale(0.9);
+          }
+          100% {
+            right: calc(100% - 6px);
+            opacity: 0;
+            transform: translateY(-50%) scale(0.6);
+          }
         }
       `}</style>
     </div>
