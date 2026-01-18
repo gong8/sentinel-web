@@ -98,11 +98,11 @@ export function Footer() {
           {/* Social Links */}
           <div className="flex items-center gap-4">
             <a
-              href="https://twitter.com"
+              href="https://x.com/sentinel_london"
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-lg text-muted-foreground hover:text-brand-400 hover:bg-brand-500/10 transition-all"
-              aria-label="Twitter"
+              aria-label="X (Twitter)"
             >
               <TwitterIcon className="h-4 w-4" />
             </a>

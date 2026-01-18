@@ -204,15 +204,15 @@ export function ConstellationBackground() {
   const initStars = useCallback((width: number, height: number) => {
     const stars: Star[] = [];
     // Create a grid-based distribution for balanced placement
-    const cols = 10;
-    const rows = 7;
+    const cols = 6;
+    const rows = 4;
     const cellWidth = width / cols;
     const cellHeight = height / rows;
 
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
         // Add some randomness within each cell, but skip some cells for organic feel
-        if (Math.random() > 0.35) {
+        if (Math.random() > 0.25) {
           const baseX = col * cellWidth + Math.random() * cellWidth * 0.8 + cellWidth * 0.1;
           const baseY = row * cellHeight + Math.random() * cellHeight * 0.8 + cellHeight * 0.1;
           stars.push({
@@ -236,7 +236,7 @@ export function ConstellationBackground() {
 
     // Pre-compute some persistent connections for constellation effect
     const connections: Connection[] = [];
-    const connectionDistance = 160;
+    const connectionDistance = 400;
 
     for (let i = 0; i < stars.length; i++) {
       // Each star connects to 1-3 nearby stars for a constellation look
@@ -253,9 +253,9 @@ export function ConstellationBackground() {
         }
       }
 
-      // Sort by distance and connect to closest 1-2 stars
+      // Sort by distance and connect to closest 2-3 stars
       nearbyStars.sort((a, b) => a.distance - b.distance);
-      const connectCount = Math.min(Math.floor(Math.random() * 2) + 1, nearbyStars.length);
+      const connectCount = Math.min(Math.floor(Math.random() * 2) + 2, nearbyStars.length);
 
       for (let k = 0; k < connectCount; k++) {
         const j = nearbyStars[k].index;
@@ -330,16 +330,16 @@ export function ConstellationBackground() {
       const connDistance = Math.sqrt(connDx * connDx + connDy * connDy);
 
       // Dynamic opacity based on distance and time
-      const distanceFactor = Math.max(0, 1 - connDistance / 220);
-      const pulse = Math.sin(timeRef.current * 0.01 + idx * 0.5) * 0.2 + 0.8;
-      const opacity = distanceFactor * 0.25 * pulse;
+      const distanceFactor = Math.max(0, 1 - connDistance / 450);
+      const pulse = Math.sin(timeRef.current * 0.012 + idx * 0.5) * 0.15 + 0.85;
+      const opacity = distanceFactor * 0.45 * pulse;
 
-      if (opacity > 0.02) {
+      if (opacity > 0.05) {
         ctx.beginPath();
         ctx.moveTo(star.x, star.y);
         ctx.lineTo(other.x, other.y);
-        ctx.strokeStyle = `rgba(150, 120, 230, ${opacity})`;
-        ctx.lineWidth = 0.8;
+        ctx.strokeStyle = `rgba(160, 130, 240, ${opacity})`;
+        ctx.lineWidth = 1;
         ctx.stroke();
       }
     });

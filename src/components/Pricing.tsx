@@ -38,7 +38,7 @@ const tiers = [
   },
   {
     name: 'Enterprise',
-    description: 'For organizations with advanced security and compliance needs.',
+    description: 'For organisations with advanced security and compliance needs.',
     price: 'Custom',
     priceDetail: 'contact us',
     features: [

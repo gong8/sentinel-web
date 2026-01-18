@@ -36,7 +36,7 @@ export function Hero() {
           </h1>
 
           <p className="mt-8 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Unified authorization for{' '}
+            Unified authorisation for{' '}
             <span className="font-mono text-brand-300/80 bg-brand-500/10 px-1.5 py-0.5 rounded">MCP</span>
             {' '}tools and{' '}
             <span className="font-mono text-brand-300/80 bg-brand-500/10 px-1.5 py-0.5 rounded">A2A</span>

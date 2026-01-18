@@ -6,7 +6,7 @@ const securityFeatures = [
   { label: 'AES-256-GCM Encryption', icon: Lock },
   { label: 'OAuth 2.1 + PKCE', icon: Key },
   { label: 'DENY-first Evaluation', icon: Shield },
-  { label: 'Organization Scoped', icon: Users },
+  { label: 'Organisation Scoped', icon: Users },
   { label: 'Policy Snapshots', icon: FileCheck },
   { label: 'Admin Action Logs', icon: Eye },
   { label: 'Soft Delete & Recovery', icon: Trash2 },

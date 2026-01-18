@@ -66,7 +66,7 @@ export function CTA() {
             <span className="text-gradient">AI agents</span>?
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            Get started with a personalized demo of SENTINEL.
+            Get started with a personalised demo of SENTINEL.
           </p>
 
           <div
