@@ -54,7 +54,7 @@ export function Footer() {
               </span>
             </a>
             <span className="text-sm text-muted-foreground">
-              The control plane for AI agents.
+              The authorization layer for AI agents.
             </span>
           </div>
 

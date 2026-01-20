@@ -62,11 +62,11 @@ export function CTA() {
           }`}
         >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-            Ready to secure your{' '}
-            <span className="text-gradient">AI agents</span>?
+            Take control of your{' '}
+            <span className="text-gradient">AI agents</span>
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            Get started with a personalised demo of SENTINEL.
+            Join our design partner program and help shape the future of AI agent governance.
           </p>
 
           <div
@@ -75,7 +75,7 @@ export function CTA() {
             }`}
           >
             <Button size="lg" className="text-base px-10 py-6">
-              Request a Demo
+              Become a Design Partner
             </Button>
           </div>
 
@@ -85,7 +85,7 @@ export function CTA() {
             }`}
           >
             <p className="text-sm text-muted-foreground mb-6">
-              Or join our mailing list for updates:
+              Or get notified when we launch publicly:
             </p>
             <EmailSignup />
           </div>
@@ -98,15 +98,15 @@ export function CTA() {
           >
             <span className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              SOC 2 Ready
+              DENY-First Security
             </span>
             <span className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              GDPR Compliant
+              Complete Audit Trail
             </span>
             <span className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-              Self-Hosted Option
+              Self-Hosted Deployment
             </span>
           </div>
         </div>

@@ -5,53 +5,54 @@ import { Check, Sparkles } from 'lucide-react';
 
 const tiers = [
   {
-    name: 'Starter',
-    description: 'For individuals and small teams getting started with AI agents.',
+    name: 'Free',
+    description: 'Get started with AI agent governance. No credit card required.',
     price: 'Free',
     priceDetail: 'forever',
     features: [
       'Up to 3 users',
-      '10,000 tool calls/month',
-      '5 MCP servers',
-      '7-day audit log retention',
+      '3 MCP servers',
+      'DENY-first policy engine',
+      'Complete audit logging',
+      '7-day log retention',
       'Community support',
     ],
     cta: 'Get Started',
     highlighted: false,
   },
   {
-    name: 'Pro',
-    description: 'For growing teams that need more control and longer retention.',
-    price: '$49',
-    priceDetail: '/month',
+    name: 'Team',
+    description: 'For teams deploying agents in production with compliance needs.',
+    price: 'TBD',
+    priceDetail: 'per month',
     features: [
-      'Up to 20 users',
-      '100,000 tool calls/month',
-      'Unlimited MCP servers',
+      'Up to 10 users',
+      '10 MCP servers',
       'A2A agent support',
-      '90-day audit log retention',
-      'Priority email support',
-      'SSO integration',
+      'Approval workflows',
+      'Webhook alerts',
+      '90-day log retention',
+      'Priority support',
     ],
-    cta: 'Start Free Trial',
+    cta: 'Join Waitlist',
     highlighted: true,
   },
   {
     name: 'Enterprise',
-    description: 'For organisations with advanced security and compliance needs.',
+    description: 'For organisations with advanced security and compliance requirements.',
     price: 'Custom',
     priceDetail: 'contact us',
     features: [
       'Unlimited users',
-      'Unlimited tool calls',
-      'Unlimited everything',
-      '1-year+ audit retention',
-      'Dedicated support',
+      'Unlimited servers',
+      'SSO (SAML/OIDC)',
+      'Self-hosted deployment',
+      '1-year+ log retention',
       'SLA guarantee',
-      'Self-hosted option',
+      'Dedicated support',
       'Custom integrations',
     ],
-    cta: 'Contact Sales',
+    cta: 'Talk to Us',
     highlighted: false,
   },
 ];
@@ -105,14 +106,14 @@ export function Pricing() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/40 bg-card/30 text-xs mb-6">
             <Sparkles className="h-3 w-3 text-brand-400" />
-            <span className="text-muted-foreground">Simple Pricing</span>
+            <span className="text-muted-foreground">Simple, Transparent Pricing</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-            Plans for every <span className="text-gradient">team size</span>
+            Start free, <span className="text-gradient">scale when ready</span>
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            Start free and scale as you grow. No hidden fees.
+            Get started with our free tier. Upgrade as your agent infrastructure grows.
           </p>
         </div>
 

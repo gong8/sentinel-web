@@ -3,44 +3,44 @@ import { ChevronDown, HelpCircle } from 'lucide-react';
 
 const faqs = [
   {
-    question: 'What is SENTINEL?',
+    question: 'What problem does Sentinel solve?',
     answer:
-      'SENTINEL is a unified control plane for AI agents. It provides policy-based access control, complete audit logging, and secure credential management for both MCP (Model Context Protocol) tools and A2A (Agent-to-Agent) communications.',
+      'AI agents are being deployed with access to production systems — GitHub, databases, Slack, payment processors — but there\'s no governance layer. Agents inherit user permissions, operate without audit trails, and execute sensitive operations without approval. Sentinel is the authorization layer that sits between your agents and their tools, enforcing policies, logging everything, and requiring approval for risky operations.',
   },
   {
-    question: 'How does the policy engine work?',
+    question: 'How does the DENY-first policy engine work?',
     answer:
-      'SENTINEL uses a DENY-first policy engine. All tool calls are blocked by default unless explicitly allowed by a policy. Policies can target users, roles, or agents, and support wildcard patterns for flexible access control. DENY policies always take precedence over ALLOW policies.',
+      'By default, all tool calls are blocked. You must explicitly allow access through policies. Policies target users, roles, or agents using patterns like "user:*@company.com" or "role:Engineer". DENY policies always take precedence over ALLOW. This fail-closed approach means new tools and agents are secure by default.',
   },
   {
-    question: 'What protocols does SENTINEL support?',
+    question: 'What protocols are supported?',
     answer:
-      'SENTINEL supports both MCP (Model Context Protocol) for tool access and A2A (Agent-to-Agent Protocol) for peer-to-peer agent communication. Both protocols are managed through a single control plane with unified policies and audit logging.',
+      'Sentinel supports MCP (Model Context Protocol) for AI agent tool access and A2A (Agent-to-Agent Protocol) for peer-to-peer agent communication. Both protocols are managed through a single proxy with unified policies and audit logging. As new protocols emerge, we\'ll add support.',
   },
   {
-    question: 'Can I self-host SENTINEL?',
+    question: 'Can I deploy Sentinel in my own infrastructure?',
     answer:
-      'Yes, SENTINEL is designed to be self-hosted. You can deploy it in your own infrastructure using Docker or Kubernetes. We also offer a managed cloud option for teams who prefer not to manage their own infrastructure.',
+      'Yes, Sentinel is designed for self-hosted deployment. You can run it using Docker Compose or Kubernetes in your own VPC. Your data never leaves your infrastructure. We\'re also planning a managed cloud option for teams who prefer not to self-host.',
   },
   {
-    question: 'What kind of audit logs are captured?',
+    question: 'What audit data is captured?',
     answer:
-      'SENTINEL captures comprehensive audit logs for every tool invocation, including the tool called, parameters passed, user/agent identity, policy that matched, and the decision made. Policy snapshots are preserved for compliance and forensic analysis.',
+      'Every tool invocation is logged with: the tool called, all parameters, user/agent identity, which policy matched, the decision (ALLOW/DENY), and a snapshot of the policy at evaluation time. This creates an immutable audit trail for compliance and forensic analysis.',
   },
   {
-    question: 'How do I integrate with existing agents?',
+    question: 'How do I integrate with my existing AI agents?',
     answer:
-      'Integration is straightforward. For MCP, point your agent to SENTINEL\'s proxy endpoint instead of directly to MCP servers. For A2A, register your agent cards in SENTINEL and route A2A requests through our proxy. Both approaches require minimal code changes.',
+      'Integration requires minimal code changes. Point your MCP client to Sentinel\'s proxy endpoint instead of directly to MCP servers. For A2A, register your agents and route requests through our proxy. Sentinel handles authentication, policy evaluation, and logging transparently.',
   },
   {
-    question: 'Is there a free tier?',
+    question: 'Does Sentinel help with compliance?',
     answer:
-      'We offer a free tier for small teams and individual developers with up to 3 users and 10,000 tool calls per month. For larger deployments, contact us for enterprise pricing.',
+      'Yes. Sentinel\'s complete audit trails, policy snapshots, AES-256 encryption, and role-based access control are designed with SOC 2, HIPAA, GDPR, and EU AI Act requirements in mind. For enterprises, we offer compliance-ready exports and extended log retention.',
   },
   {
-    question: 'What about compliance requirements?',
+    question: 'What stage is the product in?',
     answer:
-      'SENTINEL is built with compliance in mind. Features like complete audit trails, policy snapshots, AES-256 encryption, and role-based access control help you meet SOC 2, GDPR, and HIPAA requirements.',
+      'Sentinel has a functional MVP with the core policy engine, MCP/A2A proxy, complete audit logging, and admin/user dashboards. We\'re working with design partners to validate the product and pricing before general availability. The free tier is available now.',
   },
 ];
 

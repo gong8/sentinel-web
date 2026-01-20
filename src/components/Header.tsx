@@ -4,9 +4,9 @@ import { Button } from './ui/button';
 import { Logo } from './Logo';
 
 const navLinks = [
+  { label: 'Problem', href: '#problem' },
   { label: 'Features', href: '#features' },
   { label: 'How It Works', href: '#how-it-works' },
-  { label: 'Security', href: '#security' },
   { label: 'Pricing', href: '#pricing' },
   { label: 'FAQ', href: '#faq' },
 ];
@@ -50,7 +50,7 @@ export function Header() {
               v0.1.0
             </span>
             <Button size="sm" className="hidden sm:inline-flex">
-              Request Demo
+              Early Access
             </Button>
 
             {/* Mobile menu button */}
@@ -79,7 +79,7 @@ export function Header() {
             ))}
             <div className="pt-3">
               <Button size="sm" className="w-full">
-                Request Demo
+                Early Access
               </Button>
             </div>
           </div>

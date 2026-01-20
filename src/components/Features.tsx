@@ -6,58 +6,59 @@ import { Badge } from './ui/badge';
 const features = [
   {
     icon: Shield,
-    title: 'Granular Policy Control',
+    title: 'DENY-First Policy Engine',
     description:
-      'DENY-first evaluation with wildcard support. Target users, roles, or agents.',
-    badge: 'DENY-first',
+      'Nothing happens without explicit permission. Target users, roles, or agents with wildcard patterns.',
+    badge: 'Core',
     code: 'effect: "DENY"',
   },
   {
     icon: FileText,
     title: 'Complete Audit Trail',
     description:
-      'Every tool invocation logged with full context, parameters, and policy snapshots.',
-    badge: 'Compliant',
+      'Every tool call logged with full context, parameters, and policy snapshots. Compliance-ready exports.',
+    badge: 'SOC 2',
     code: 'audit.log()',
   },
   {
-    icon: Key,
-    title: 'Seamless Authentication',
+    icon: UserCheck,
+    title: 'Approval Workflows',
     description:
-      'OAuth 2.1 with PKCE for secure MCP server auth. User and org-level credentials.',
-    badge: 'RFC 9728',
-    code: 'oauth.pkce()',
+      'Flag sensitive operations to require human approval before execution. Self-approval for trusted users.',
+    badge: 'Real-Time',
+    code: 'require_approval',
   },
   {
     icon: Server,
-    title: 'MCP + A2A Unified',
+    title: 'MCP + A2A Protocols',
     description:
-      'Connect MCP servers and A2A agents through one control plane. Auto-discover tools.',
+      'Unified control for MCP tool servers and A2A agent-to-agent communication. One proxy, all protocols.',
     badge: 'Multi-Protocol',
     code: 'mcp + a2a',
   },
   {
-    icon: Users,
-    title: 'Agent-to-Agent Control',
+    icon: Key,
+    title: 'Credential Management',
     description:
-      'Manage peer-to-peer agent collaboration with A2A protocol. Verify agent identity.',
-    badge: 'A2A Ready',
-    code: 'a2a.verify()',
-  },
-  {
-    icon: UserCheck,
-    title: 'Just-In-Time Access',
-    description:
-      'Users request access to tools they need. Admins approve or deny in real-time.',
-    badge: 'Coming Soon',
-    code: 'jit.request()',
+      'OAuth 2.1 with PKCE, API keys, and encrypted storage. User-level and org-level credentials.',
+    badge: 'AES-256',
+    code: 'oauth.pkce()',
   },
   {
     icon: BarChart,
-    title: 'Usage Analytics',
+    title: 'Rate Limiting & Alerts',
     description:
-      'Track tool usage patterns, identify top users and agents, find peak usage hours.',
-    code: 'analytics.*',
+      'Per-session rate limits for sensitive tools. Webhook alerts to Slack, Discord, or email.',
+    badge: 'Control',
+    code: 'rate_limit',
+  },
+  {
+    icon: Users,
+    title: 'Agent Verification',
+    description:
+      'Cryptographic attestation for A2A agents. Verify agent identity before granting access.',
+    badge: 'Security',
+    code: 'a2a.verify()',
   },
 ];
 
@@ -110,16 +111,20 @@ export function Features() {
           }`}
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/40 bg-card/30 text-xs mb-6">
-            <span className="font-mono text-brand-400">7</span>
-            <span className="text-muted-foreground">Core Features</span>
+            <span className="font-mono text-brand-400">Policy</span>
+            <span className="text-muted-foreground">+</span>
+            <span className="font-mono text-brand-400">Audit</span>
+            <span className="text-muted-foreground">+</span>
+            <span className="font-mono text-brand-400">Control</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-            Everything you need to{' '}
-            <span className="text-gradient">secure AI agents</span>
+            The governance layer{' '}
+            <span className="text-gradient">enterprises need</span>
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            SENTINEL provides a complete control plane for managing AI agents with tool access.
+            Sentinel sits between your AI agents and their tools. Define who can do what,
+            log everything, and require approval for sensitive operations.
           </p>
         </div>
 

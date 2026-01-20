@@ -2,31 +2,23 @@ import { useEffect, useRef, useState } from 'react';
 import { Card } from './ui/card';
 import { Quote } from 'lucide-react';
 
-const testimonials = [
-  {
-    quote:
-      "SENTINEL gave us the confidence to deploy AI agents in production. The granular policy control and audit logging are exactly what our compliance team needed.",
-    author: 'Sarah Chen',
-    role: 'VP of Engineering',
-    company: 'TechCorp',
-    avatar: 'SC',
-  },
-  {
-    quote:
-      "We went from zero visibility into agent tool usage to complete audit trails overnight. The DENY-first approach aligns perfectly with our security posture.",
-    author: 'Michael Torres',
-    role: 'Head of Security',
-    company: 'FinanceAI',
-    avatar: 'MT',
-  },
-  {
-    quote:
-      "The A2A protocol support is a game-changer. Managing agent-to-agent communication through one control plane simplified our architecture significantly.",
-    author: 'Emily Watson',
-    role: 'CTO',
-    company: 'AgentOps',
-    avatar: 'EW',
-  },
+// Add real testimonials here when you have them
+// Example format:
+// {
+//   quote: "Sentinel gave us the confidence to deploy AI agents in production...",
+//   author: 'Jane Smith',
+//   role: 'VP of Engineering',
+//   company: 'Acme Corp',
+//   avatar: 'JS', // initials
+// }
+const testimonials: Array<{
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+  avatar: string;
+}> = [
+  // Empty for now - section won't render until you add real testimonials
 ];
 
 function useInView() {
@@ -56,6 +48,11 @@ function useInView() {
 
 export function Testimonials() {
   const { ref, isInView } = useInView();
+
+  // Don't render anything if there are no testimonials
+  if (testimonials.length === 0) {
+    return null;
+  }
 
   return (
     <section
@@ -124,31 +121,6 @@ export function Testimonials() {
           ))}
         </div>
 
-        {/* Social proof stats */}
-        <div
-          className={`mt-16 flex flex-wrap justify-center gap-8 md:gap-16 transition-all duration-700 delay-500 ${
-            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-          }`}
-        >
-          <div className="text-center">
-            <div className="text-2xl font-bold text-gradient">50+</div>
-            <div className="text-xs text-muted-foreground font-mono uppercase tracking-wider mt-1">
-              Companies
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-gradient">1M+</div>
-            <div className="text-xs text-muted-foreground font-mono uppercase tracking-wider mt-1">
-              Tool Calls Secured
-            </div>
-          </div>
-          <div className="text-center">
-            <div className="text-2xl font-bold text-gradient">99.9%</div>
-            <div className="text-xs text-muted-foreground font-mono uppercase tracking-wider mt-1">
-              Uptime
-            </div>
-          </div>
-        </div>
       </div>
     </section>
   );

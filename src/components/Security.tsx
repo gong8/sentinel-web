@@ -65,12 +65,12 @@ export function Security() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-            Enterprise-Grade{' '}
-            <span className="text-gradient">Security</span>
+            Built for{' '}
+            <span className="text-gradient">enterprise security</span>
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            Built from the ground up with security best practices. Every layer is designed for
-            compliance and auditability.
+            Self-hosted in your infrastructure. Encrypted at rest. Fail-closed by design.
+            Every decision auditable for compliance.
           </p>
         </div>
 

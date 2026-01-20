@@ -23,35 +23,33 @@ export function Hero() {
         {/* Badge */}
         <div className="flex justify-center mb-8 animate-page-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-border/40 bg-card/30 backdrop-blur-sm text-xs">
-            <span className="font-mono text-brand-400">MCP + A2A</span>
-            <span className="text-muted-foreground">Unified Control Plane</span>
+            <span className="font-mono text-brand-400">Self-Hosted</span>
+            <span className="text-muted-foreground">Authorization Layer for AI Agents</span>
           </div>
         </div>
 
         {/* Text Content */}
         <div className="mx-auto max-w-4xl text-center animate-page-in">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
-            The Control Plane for{' '}
-            <span className="text-gradient">AI Agents</span>
+            Your AI agents have{' '}
+            <span className="text-gradient">too much access</span>
           </h1>
 
           <p className="mt-8 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Unified authorisation for{' '}
-            <span className="font-mono text-brand-300/80 bg-brand-500/10 px-1.5 py-0.5 rounded">MCP</span>
-            {' '}tools and{' '}
-            <span className="font-mono text-brand-300/80 bg-brand-500/10 px-1.5 py-0.5 rounded">A2A</span>
-            {' '}agent-to-agent calls. Define policies, audit everything.
+            Sentinel is a proxy layer between your AI agents and their tools.
+            Every tool call is evaluated against your policies, logged for compliance,
+            and can require approval before execution.
           </p>
 
           <div className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-5">
             <Button size="lg">
-              Request a Demo
+              Become a Design Partner
             </Button>
             <a
-              href="#how-it-works"
+              href="#problem"
               className="group flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
             >
-              <span>See how it works</span>
+              <span>See the problem we solve</span>
               <span className="inline-block transition-transform group-hover:translate-y-0.5">
                 &darr;
               </span>

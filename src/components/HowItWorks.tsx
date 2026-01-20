@@ -170,7 +170,8 @@ export function HowItWorks() {
             How <span className="text-gradient">SENTINEL</span> Works
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            A unified control plane that sits between your agents and their capabilities.
+            A proxy layer between your AI agents and their tools. Every request flows through
+            Sentinel where policies are evaluated and actions are logged.
           </p>
         </div>
 
@@ -272,25 +273,27 @@ function ArchitectureDiagram() {
           }}
         />
 
-        {/* Desktop Layout - 3 column with connectors */}
+        {/* Desktop Layout - 5 column grid with connectors as columns */}
         <div className="hidden md:block relative">
           {/* Column headers */}
-          <div className="grid grid-cols-3 gap-8 mb-6">
+          <div className="grid grid-cols-[1fr_60px_auto_60px_1fr] gap-0 mb-6">
             <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold text-center">
               Request Sources
             </div>
+            <div />
             <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold text-center">
               Control Plane
             </div>
+            <div />
             <div className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold text-center">
               Protected Resources
             </div>
           </div>
 
-          {/* Main content row */}
-          <div className="grid grid-cols-3 gap-8 items-center">
+          {/* Main content row - 5 columns: sources, left-connectors, sentinel, right-connectors, destinations */}
+          <div className="grid grid-cols-[1fr_60px_auto_60px_1fr] gap-0 items-center">
             {/* Left: Sources */}
-            <div className="space-y-4">
+            <div className="space-y-4 pr-2">
               <SourceNode
                 icon={Bot}
                 label="AI Agents"
@@ -305,15 +308,18 @@ function ArchitectureDiagram() {
               />
             </div>
 
-            {/* Center: SENTINEL with connectors */}
-            <div className="relative flex justify-center">
-              {/* Left connector lines */}
-              <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full w-8 flex flex-col justify-center gap-4">
-                <ConnectorLine direction="right" delay={0} />
-                <ConnectorLine direction="right" delay={0.3} />
+            {/* Left connectors column - matches the 100px box height + 16px gap */}
+            <div className="flex flex-col justify-between h-[216px]">
+              <div className="flex items-center h-[100px]">
+                <ConnectorLine delay={0} />
               </div>
+              <div className="flex items-center h-[100px]">
+                <ConnectorLine delay={0.4} />
+              </div>
+            </div>
 
-              {/* SENTINEL core */}
+            {/* Center: SENTINEL */}
+            <div className="relative flex justify-center px-4">
               <div className="relative group">
                 {/* Outer glow ring */}
                 <div className="absolute -inset-4 rounded-3xl bg-primary/20 blur-xl opacity-60 group-hover:opacity-80 transition-opacity" />
@@ -346,16 +352,20 @@ function ArchitectureDiagram() {
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* Right connector lines */}
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-full w-8 flex flex-col justify-center gap-4">
-                <ConnectorLine direction="right" delay={0.6} />
-                <ConnectorLine direction="right" delay={0.9} />
+            {/* Right connectors column - matches the 100px box height + 16px gap */}
+            <div className="flex flex-col justify-between h-[216px]">
+              <div className="flex items-center h-[100px]">
+                <ConnectorLine delay={0.8} />
+              </div>
+              <div className="flex items-center h-[100px]">
+                <ConnectorLine delay={1.2} />
               </div>
             </div>
 
             {/* Right: Destinations */}
-            <div className="space-y-4">
+            <div className="space-y-4 pl-2">
               <DestinationNode
                 icon={Server}
                 label="MCP Servers"
@@ -495,9 +505,9 @@ function SourceNode({
   examples: string[];
 }) {
   return (
-    <div className="group relative rounded-xl border border-border/60 bg-card/50 p-4 transition-all hover:border-border hover:bg-card/70">
-      <div className="flex items-start gap-3">
-        <div className="rounded-lg border border-border/80 bg-muted/30 p-2.5 group-hover:bg-muted/50 transition-colors">
+    <div className="group relative rounded-xl border border-border/60 bg-card/50 p-4 transition-all hover:border-border hover:bg-card/70 h-[100px] flex items-center">
+      <div className="flex items-start gap-3 w-full">
+        <div className="rounded-lg border border-border/80 bg-muted/30 p-2.5 group-hover:bg-muted/50 transition-colors shrink-0">
           <Icon className="h-5 w-5 text-foreground" />
         </div>
         <div className="flex-1 min-w-0">
@@ -533,7 +543,7 @@ function DestinationNode({
   items: string[];
 }) {
   return (
-    <div className="group relative rounded-xl border border-border/60 bg-card/50 p-4 transition-all hover:border-border hover:bg-card/70">
+    <div className="group relative rounded-xl border border-border/60 bg-card/50 p-4 transition-all hover:border-border hover:bg-card/70 h-[100px] flex items-center">
       {/* Protocol badge */}
       <div className="absolute -top-2 right-3">
         <span className="inline-block px-2 py-0.5 rounded-full text-[9px] font-semibold bg-primary/10 text-primary border border-primary/20">
@@ -541,8 +551,8 @@ function DestinationNode({
         </span>
       </div>
 
-      <div className="flex items-start gap-3">
-        <div className="rounded-lg border border-border/80 bg-muted/30 p-2.5 group-hover:bg-muted/50 transition-colors">
+      <div className="flex items-start gap-3 w-full">
+        <div className="rounded-lg border border-border/80 bg-muted/30 p-2.5 group-hover:bg-muted/50 transition-colors shrink-0">
           <Icon className="h-5 w-5 text-foreground" />
         </div>
         <div className="flex-1 min-w-0">
@@ -589,73 +599,47 @@ function StatusPill({
   );
 }
 
-function ConnectorLine({ direction, delay }: { direction: 'right' | 'left'; delay: number }) {
+function ConnectorLine({ delay }: { delay: number }) {
+  // 4 dots evenly distributed across the 2.4s animation cycle (2.4 / 4 = 0.6s apart)
+  const animationDuration = 2.4;
+  const dotCount = 4;
+  const dotOffsets = Array.from({ length: dotCount }, (_, i) => (i * animationDuration) / dotCount);
+
   return (
-    <div className="relative h-0.5 w-full">
+    <div className="relative h-[3px] w-full">
       {/* Base line with gradient */}
       <div className="absolute inset-0 bg-gradient-to-r from-border/50 via-primary/30 to-border/50 rounded-full" />
 
-      {/* Animated dot with glow trail */}
-      <div
-        className="absolute top-1/2 -translate-y-1/2 w-2.5 h-2.5 rounded-full"
-        style={{
-          background: 'radial-gradient(circle, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.6) 50%, transparent 100%)',
-          boxShadow: '0 0 8px hsl(var(--primary) / 0.6), 0 0 12px hsl(var(--primary) / 0.3)',
-          animation:
-            direction === 'right'
-              ? `connectorDotRight 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite`
-              : `connectorDotLeft 2.5s cubic-bezier(0.4, 0, 0.2, 1) infinite`,
-          animationDelay: `${delay}s`,
-        }}
-      />
+      {/* Multiple dots with staggered delays for even spacing */}
+      {dotOffsets.map((dotDelay, index) => (
+        <div
+          key={index}
+          className="absolute top-1/2 w-2 h-2 rounded-full connector-dot"
+          style={{
+            transform: 'translateY(-50%)',
+            background: 'radial-gradient(circle, hsl(var(--primary)) 0%, hsl(var(--primary) / 0.6) 60%, transparent 100%)',
+            boxShadow: '0 0 8px hsl(var(--primary) / 0.7), 0 0 12px hsl(var(--primary) / 0.3)',
+            animation: `dotMove ${animationDuration}s linear infinite`,
+            animationDelay: `${delay + dotDelay}s`,
+          }}
+        />
+      ))}
 
       <style>{`
-        @keyframes connectorDotRight {
+        @keyframes dotMove {
           0% {
-            left: -4px;
+            left: -8px;
             opacity: 0;
-            transform: translateY(-50%) scale(0.6);
           }
-          10% {
-            opacity: 0.6;
-            transform: translateY(-50%) scale(0.9);
-          }
-          50% {
+          8% {
             opacity: 1;
-            transform: translateY(-50%) scale(1);
           }
-          90% {
-            opacity: 0.6;
-            transform: translateY(-50%) scale(0.9);
+          92% {
+            opacity: 1;
           }
           100% {
-            left: calc(100% - 6px);
+            left: calc(100% + 8px);
             opacity: 0;
-            transform: translateY(-50%) scale(0.6);
-          }
-        }
-        @keyframes connectorDotLeft {
-          0% {
-            right: -4px;
-            opacity: 0;
-            transform: translateY(-50%) scale(0.6);
-          }
-          10% {
-            opacity: 0.6;
-            transform: translateY(-50%) scale(0.9);
-          }
-          50% {
-            opacity: 1;
-            transform: translateY(-50%) scale(1);
-          }
-          90% {
-            opacity: 0.6;
-            transform: translateY(-50%) scale(0.9);
-          }
-          100% {
-            right: calc(100% - 6px);
-            opacity: 0;
-            transform: translateY(-50%) scale(0.6);
           }
         }
       `}</style>
