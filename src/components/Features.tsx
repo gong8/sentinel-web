@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Shield, FileText, Key, Server, UserCheck, BarChart, Users } from 'lucide-react';
+import { Shield, FileText, Key, Server, UserCheck, BarChart } from 'lucide-react';
 import { Card } from './ui/card';
 import { Badge } from './ui/badge';
 
@@ -17,7 +17,6 @@ const features = [
     title: 'Complete Audit Trail',
     description:
       'Every tool call logged with full context, parameters, and policy snapshots. Compliance-ready exports.',
-    badge: 'SOC 2',
     code: 'audit.log()',
   },
   {
@@ -33,7 +32,6 @@ const features = [
     title: 'MCP + A2A Protocols',
     description:
       'Unified control for MCP tool servers and A2A agent-to-agent communication. One proxy, all protocols.',
-    badge: 'Multi-Protocol',
     code: 'mcp + a2a',
   },
   {
@@ -49,18 +47,8 @@ const features = [
     title: 'Rate Limiting & Alerts',
     description:
       'Per-session rate limits for sensitive tools. Webhook alerts to Slack, Discord, or email.',
-    badge: 'Control',
     code: 'rate_limit',
-  },
-  {
-    icon: Users,
-    title: 'Agent Verification',
-    description:
-      'Cryptographic attestation for A2A agents. Verify agent identity before granting access.',
-    badge: 'Security',
-    code: 'a2a.verify()',
-  },
-];
+  }];
 
 function useInView(options = {}) {
   const ref = useRef<HTMLElement>(null);

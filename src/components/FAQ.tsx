@@ -5,7 +5,7 @@ const faqs = [
   {
     question: 'What problem does Sentinel solve?',
     answer:
-      'AI agents are being deployed with access to production systems — GitHub, databases, Slack, payment processors — but there\'s no governance layer. Agents inherit user permissions, operate without audit trails, and execute sensitive operations without approval. Sentinel is the authorization layer that sits between your agents and their tools, enforcing policies, logging everything, and requiring approval for risky operations.',
+      'AI agents are being deployed with access to production systems — GitHub, databases, Slack, payment processors — but there\'s no governance layer. Agents inherit user permissions, operate without audit trails, and execute sensitive operations without approval. Sentinel is the authorisation layer that sits between your agents and their tools, enforcing policies, logging everything, and requiring approval for risky operations.',
   },
   {
     question: 'How does the DENY-first policy engine work?',

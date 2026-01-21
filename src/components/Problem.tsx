@@ -120,11 +120,11 @@ export function Problem() {
         >
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-center md:text-left">
             <div className="flex items-center gap-3">
-              <div className="h-2 w-2 rounded-full bg-amber-500 animate-pulse" />
+              <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
               <span className="text-sm text-muted-foreground">
-                <span className="font-semibold text-amber-400">SOC 2</span>,{' '}
-                <span className="font-semibold text-amber-400">HIPAA</span>, and{' '}
-                <span className="font-semibold text-amber-400">EU AI Act</span>{' '}
+                <span className="font-semibold text-red-400">SOC 2</span>,{' '}
+                <span className="font-semibold text-red-400">HIPAA</span>, and{' '}
+                <span className="font-semibold text-red-400">EU AI Act</span>{' '}
                 requirements cannot be met without agent governance.
               </span>
             </div>

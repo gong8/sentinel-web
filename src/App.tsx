@@ -12,15 +12,26 @@ import { FAQ } from './components/FAQ';
 import { CTA } from './components/CTA';
 import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
+import { Aurora } from './components/Aurora';
+import { UseCases } from './components/UseCases';
 
 export default function App() {
   return (
     <div className="min-h-screen relative">
+      <div className="absolute top-0 left-0 w-full h-screen -z-20 opacity-60 overflow-hidden pointer-events-none">
+        <Aurora
+          colorStops={['#4E00FF', '#2563eb', '#4E00FF']}
+          amplitude={0.6}
+          blend={0.5}
+          speed={0.6}
+        />
+      </div>
       <Header />
       <main>
         <Hero />
         <Problem />
         <Features />
+        <UseCases />
         <Integrations />
         <HowItWorks />
         <Security />

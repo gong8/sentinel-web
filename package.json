@@ -10,6 +10,8 @@
     "lint": "eslint src --ext .ts,.tsx --max-warnings=0"
   },
   "dependencies": {
+    "gsap": "^3.12.5",
+    "ogl": "^1.0.11",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.562.0",

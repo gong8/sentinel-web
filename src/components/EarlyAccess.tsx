@@ -85,7 +85,7 @@ export function EarlyAccess() {
             <span className="text-gradient">founding customers</span>
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            We're working with a small group of design partners to build the authorization
+            We're working with a small group of design partners to build the authorisation
             layer that enterprises actually need. Get in early and shape the product.
           </p>
         </div>
