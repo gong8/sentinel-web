@@ -23,7 +23,6 @@ export function Header() {
             <Logo
               size="md"
               className="-mt-0.5"
-              withGlow
             />
             <span className="text-xl font-display font-semibold tracking-tight text-white">
               sentinel
@@ -49,9 +48,11 @@ export function Header() {
             <span className="hidden lg:inline text-xs font-mono text-muted-foreground/60 bg-muted/30 px-3 py-1.5 rounded-lg border border-border/30">
               v0.1.0
             </span>
-            <Button size="sm" className="hidden sm:inline-flex">
-              Early Access
-            </Button>
+            <a href="#early-access">
+              <Button size="sm" className="hidden sm:inline-flex">
+                Early Access
+              </Button>
+            </a>
 
             {/* Mobile menu button */}
             <button
@@ -78,9 +79,11 @@ export function Header() {
               </a>
             ))}
             <div className="pt-3">
-              <Button size="sm" className="w-full">
-                Early Access
-              </Button>
+              <a href="#early-access" onClick={() => setMobileMenuOpen(false)}>
+                <Button size="sm" className="w-full">
+                  Early Access
+                </Button>
+              </a>
             </div>
           </div>
         )}

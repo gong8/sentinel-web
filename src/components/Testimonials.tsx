@@ -75,7 +75,7 @@ export function Testimonials() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/40 bg-card/30 text-xs mb-6">
             <Quote className="h-3 w-3 text-brand-400" />
-            <span className="text-muted-foreground">What people say</span>
+            <span className="font-mono text-muted-foreground uppercase tracking-wider">Testimonials</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">

@@ -148,12 +148,13 @@ export function HowItWorks() {
       className="py-28 relative bg-gradient-to-b from-transparent via-brand-500/[0.02] to-transparent overflow-hidden"
       ref={sectionRef as React.RefObject<HTMLElement>}
     >
-      {/* Background accents */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-brand-500/8 to-transparent blur-3xl -z-10" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-brand-500/5 to-transparent blur-3xl -z-10" />
+      {/* Background accents with noise */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-brand-500/8 to-transparent blur-3xl -z-10 noise-gradient" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-gradient-to-tr from-brand-500/5 to-transparent blur-3xl -z-10 noise-gradient" />
 
       {/* Grid background */}
-      <div className="absolute inset-0 bg-grid-small opacity-15" />
+      <div className="absolute inset-0 bg-grid-small opacity-20" />
+      <div className="absolute inset-0 bg-grid-fade opacity-25" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div
@@ -196,12 +197,12 @@ export function HowItWorks() {
                 style={{ transitionDelay: `${index * 150}ms` }}
               >
                 <div className="flex items-center gap-4 mb-4">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-brand-500/20 to-brand-500/10 text-brand-400 font-display font-bold text-lg group-hover:from-brand-500/30 group-hover:to-brand-500/20 transition-all">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-brand-500/20 to-brand-500/10 text-brand-400 font-mono font-bold text-lg group-hover:from-brand-500/30 group-hover:to-brand-500/20 transition-all">
                     {step.number}
                   </div>
                   <Icon className="h-5 w-5 text-muted-foreground group-hover:text-brand-400 transition-colors" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2 group-hover:text-brand-300 transition-colors">
+                <h3 className="text-lg font-display font-semibold mb-2 group-hover:text-brand-300 transition-colors">
                   {step.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">
@@ -248,167 +249,8 @@ export function HowItWorks() {
             </Card>
           </div>
         </div>
-
-        {/* Dashboard Preview */}
-        <div className="mt-20">
-          <div className="text-center mb-8">
-            <h3 className="text-xl font-semibold mb-2">See it in action</h3>
-            <p className="text-sm text-muted-foreground">The admin dashboard gives you full visibility into agent activity</p>
-          </div>
-
-          <div className="relative">
-            {/* Glow effect */}
-            <div className="absolute -inset-4 bg-gradient-to-t from-brand-500/10 via-brand-500/5 to-transparent blur-3xl -z-10" />
-
-            {/* Preview container */}
-            <div className="relative mx-auto max-w-5xl rounded-2xl border border-border/30 bg-card/50 backdrop-blur-sm shadow-2xl shadow-brand-500/10 overflow-hidden">
-              {/* Browser chrome */}
-              <div className="flex items-center gap-2 px-4 py-3 border-b border-border/40 bg-muted/20">
-                <div className="flex gap-1.5">
-                  <div className="h-3 w-3 rounded-full bg-red-500/60" />
-                  <div className="h-3 w-3 rounded-full bg-yellow-500/60" />
-                  <div className="h-3 w-3 rounded-full bg-green-500/60" />
-                </div>
-                <div className="flex-1 mx-4">
-                  <div className="h-6 w-72 rounded-md bg-muted/40 mx-auto flex items-center justify-center px-3">
-                    <span className="text-xs text-muted-foreground font-mono">
-                      app.sentinel.dev/admin/dashboard
-                    </span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Dashboard content */}
-              <div className="aspect-[16/10] bg-background/80 p-4">
-                <DashboardMockup />
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </section>
-  );
-}
-
-function DashboardMockup() {
-  return (
-    <div className="h-full flex gap-4">
-      {/* Sidebar */}
-      <div className="w-48 bg-card/60 rounded-xl border border-border/40 p-3 hidden sm:block">
-        <div className="space-y-2">
-          <div className="h-4 w-20 text-[10px] flex items-center px-2 text-brand-400 font-mono">
-            SENTINEL
-          </div>
-          <div className="h-9 w-full bg-brand-500/20 rounded-lg flex items-center px-3 text-xs text-foreground font-medium">
-            Dashboard
-          </div>
-          {['Users', 'Policies', 'MCP Servers', 'Audit Log'].map((item) => (
-            <div
-              key={item}
-              className="h-9 w-full bg-muted/20 rounded-lg flex items-center px-3 text-xs text-muted-foreground"
-            >
-              {item}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Main content */}
-      <div className="flex-1 space-y-4">
-        {/* Header */}
-        <div className="h-11 bg-card/60 rounded-xl border border-border/40 flex items-center px-4">
-          <span className="text-sm font-medium">Dashboard</span>
-          <span className="ml-auto text-xs font-mono text-muted-foreground bg-muted/30 px-2 py-1 rounded">
-            org_acme
-          </span>
-        </div>
-
-        {/* Stats grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
-          <StatCard label="Users" value="8" subtitle="Active" />
-          <StatCard label="Policies" value="12" subtitle="5 DENY" accent />
-          <StatCard label="MCP Servers" value="5" subtitle="23 tools" />
-          <StatCard label="A2A Agents" value="4" subtitle="Verified" />
-        </div>
-
-        {/* Audit log preview */}
-        <div className="flex-1 bg-card/60 rounded-xl border border-border/40 p-3">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-medium text-muted-foreground">Recent Activity</span>
-            <span className="text-[10px] font-mono text-brand-400 bg-brand-500/10 px-2 py-0.5 rounded">
-              LIVE
-            </span>
-          </div>
-          <div className="space-y-2">
-            <AuditEntry tool="GitHub::createPR" user="sarah.chen" status="allowed" time="2m" />
-            <AuditEntry tool="GitHub::pushCode" user="james.wilson" status="denied" time="5m" />
-            <AuditEntry tool="Slack::sendMessage" user="david.kim" status="allowed" time="8m" />
-            <AuditEntry tool="a2a::GeoRouteAgent" user="CodeReviewBot" status="allowed" time="12m" />
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function StatCard({
-  label,
-  value,
-  subtitle,
-  accent,
-}: {
-  label: string;
-  value: string;
-  subtitle: string;
-  accent?: boolean;
-}) {
-  return (
-    <div
-      className={`bg-card/60 rounded-xl border p-3 ${accent ? 'border-brand-500/30 bg-brand-500/5' : 'border-border/40'}`}
-    >
-      <div className="text-[10px] text-muted-foreground mb-1 font-mono uppercase tracking-wider">
-        {label}
-      </div>
-      <div className={`text-2xl font-display font-bold ${accent ? 'text-brand-400' : ''}`}>
-        {value}
-      </div>
-      <div className="text-[10px] text-muted-foreground">{subtitle}</div>
-    </div>
-  );
-}
-
-function AuditEntry({
-  tool,
-  user,
-  status,
-  time,
-}: {
-  tool: string;
-  user: string;
-  status: 'allowed' | 'denied';
-  time: string;
-}) {
-  return (
-    <div className="flex items-center gap-3 p-2 rounded-lg bg-muted/10 hover:bg-muted/20 transition-colors">
-      <div className="h-7 w-7 rounded-lg bg-muted/30 flex items-center justify-center text-[9px] font-mono text-muted-foreground">
-        {tool.split('::')[0].slice(0, 2).toUpperCase()}
-      </div>
-      <div className="flex-1 min-w-0">
-        <div className="text-[11px] font-mono font-medium truncate">{tool}</div>
-        <div className="text-[10px] text-muted-foreground truncate">
-          {user} &middot; {time} ago
-        </div>
-      </div>
-      <div
-        className={`h-5 px-2 rounded text-[9px] font-mono font-semibold flex items-center ${
-          status === 'allowed'
-            ? 'bg-emerald-500/15 text-emerald-400'
-            : 'bg-red-500/15 text-red-400'
-        }`}
-      >
-        {status === 'allowed' ? 'ALLOW' : 'DENY'}
-      </div>
-    </div>
   );
 }
 
@@ -488,17 +330,17 @@ function ArchitectureDiagram() {
 
                 {/* Main capsule box */}
                 <div className="relative rounded-2xl border-2 border-primary/50 bg-gradient-to-b from-card via-card to-card/80 px-8 py-6 shadow-2xl shadow-primary/20">
-                  {/* Sentinel shield icon with glow */}
+                  {/* Sentinel logo with glow */}
                   <div className="flex flex-col items-center gap-3">
                     <div className="relative">
                       <div className="absolute inset-0 bg-primary/30 blur-lg rounded-full" />
-                      <div className="relative p-3 rounded-xl bg-primary/10 border border-primary/20">
-                        <Shield className="w-8 h-8 text-primary drop-shadow-[0_0_8px_rgba(78,0,255,0.6)]" />
+                      <div className="relative p-2 rounded-xl bg-primary/10 border border-primary/20">
+                        <img src="/logo_purple.png" alt="Sentinel" className="w-7 h-7 drop-shadow-[0_0_8px_rgba(78,0,255,0.6)]" />
                       </div>
                     </div>
 
                     <div className="text-center">
-                      <div className="text-xl font-bold tracking-tight">SENTINEL</div>
+                      <div className="text-xl font-display font-bold tracking-tight">SENTINEL</div>
                       <div className="text-[10px] text-muted-foreground mt-0.5">Control Plane</div>
                     </div>
 
@@ -585,11 +427,11 @@ function ArchitectureDiagram() {
                   <div className="relative">
                     <div className="absolute inset-0 bg-primary/30 blur-lg rounded-full" />
                     <div className="relative p-2 rounded-xl bg-primary/10 border border-primary/20">
-                      <Shield className="w-6 h-6 text-primary drop-shadow-[0_0_8px_rgba(78,0,255,0.6)]" />
+                      <img src="/logo_purple.png" alt="Sentinel" className="w-6 h-6 drop-shadow-[0_0_8px_rgba(78,0,255,0.6)]" />
                     </div>
                   </div>
                   <div className="text-center">
-                    <div className="text-lg font-bold tracking-tight">SENTINEL</div>
+                    <div className="text-lg font-display font-bold tracking-tight">SENTINEL</div>
                     <div className="text-[10px] text-muted-foreground">Control Plane</div>
                   </div>
                   <div className="flex items-center gap-2 mt-1">
@@ -809,7 +651,7 @@ function ConnectorLine({ delay }: { delay: number }) {
 function FlowStep({ number, label }: { number: string; label: string }) {
   return (
     <div className="flex items-center gap-2">
-      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-primary text-[10px] font-bold">
+      <div className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-primary text-[10px] font-mono font-bold">
         {number}
       </div>
       <span className="text-muted-foreground">{label}</span>

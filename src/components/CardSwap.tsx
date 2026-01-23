@@ -21,7 +21,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     <div
       ref={ref}
       {...rest}
-      className={`absolute top-1/2 left-1/2 rounded-xl border border-white/20 bg-card/80 backdrop-blur-sm transform-gpu ${customClass ?? ''} ${className ?? ''}`.trim()}
+      className={`absolute top-1/2 left-1/2 rounded-xl border border-white/15 bg-card/95 transform-gpu ${customClass ?? ''} ${className ?? ''}`.trim()}
       style={{
         transformStyle: 'preserve-3d',
         willChange: 'transform',
@@ -87,24 +87,14 @@ export function CardSwap({
   easing = 'elastic',
   children,
 }: CardSwapProps) {
-  const config =
-    easing === 'elastic'
-      ? {
-          ease: 'elastic.out(0.6,0.9)',
-          durDrop: 2,
-          durMove: 2,
-          durReturn: 2,
-          promoteOverlap: 0.9,
-          returnDelay: 0.05,
-        }
-      : {
-          ease: 'power1.inOut',
-          durDrop: 0.8,
-          durMove: 0.8,
-          durReturn: 0.8,
-          promoteOverlap: 0.45,
-          returnDelay: 0.2,
-        };
+  const config = {
+      ease: 'power2.out',
+      durDrop: 0.7,
+      durMove: 0.7,
+      durReturn: 0.7,
+      promoteOverlap: 0.8,
+      returnDelay: 0.1,
+    };
 
   const childArr = useMemo(() => Children.toArray(children), [children]);
   const refs = useMemo(

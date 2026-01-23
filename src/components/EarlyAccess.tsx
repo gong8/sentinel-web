@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card } from './ui/card';
 import { Rocket, Building2, Users, Zap, Check } from 'lucide-react';
 import { Button } from './ui/button';
@@ -77,7 +78,7 @@ export function EarlyAccess() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-brand-500/30 bg-brand-500/10 text-xs mb-6">
             <Rocket className="h-3 w-3 text-brand-400" />
-            <span className="text-brand-400">Design Partner Program</span>
+            <span className="font-mono text-brand-400 uppercase tracking-wider">Early Access</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
@@ -104,7 +105,7 @@ export function EarlyAccess() {
                 <div className="mb-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500/20">
                   <Icon className="h-5 w-5 text-brand-400" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{benefit.title}</h3>
+                <h3 className="text-lg font-display font-semibold mb-2">{benefit.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   {benefit.description}
                 </p>
@@ -129,9 +130,11 @@ export function EarlyAccess() {
             ))}
           </div>
           <div className="mt-6 text-center">
-            <Button size="lg">
-              Apply for Early Access
-            </Button>
+            <Link to="/design-partner">
+              <Button size="lg">
+                Apply for Early Access
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

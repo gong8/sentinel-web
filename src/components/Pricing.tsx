@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { Check, Sparkles } from 'lucide-react';
+import { TiltCard } from './TiltCard';
 
 const tiers = [
   {
@@ -91,12 +92,13 @@ export function Pricing() {
       className="py-28 relative overflow-hidden"
       ref={ref as React.RefObject<HTMLElement>}
     >
-      {/* Background accents */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-brand-500/8 to-transparent blur-3xl -z-10" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-brand-500/6 to-transparent blur-3xl -z-10" />
+      {/* Background accents with noise */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-brand-500/8 to-transparent blur-3xl -z-10 noise-gradient" />
+      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-brand-500/6 to-transparent blur-3xl -z-10 noise-gradient" />
 
       {/* Grid pattern */}
-      <div className="absolute inset-0 bg-grid opacity-20" />
+      <div className="absolute inset-0 bg-grid opacity-15" />
+      <div className="absolute inset-0 bg-grid-small opacity-20" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div
@@ -106,7 +108,7 @@ export function Pricing() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/40 bg-card/30 text-xs mb-6">
             <Sparkles className="h-3 w-3 text-brand-400" />
-            <span className="text-muted-foreground">Simple, Transparent Pricing</span>
+            <span className="font-mono text-muted-foreground uppercase tracking-wider">Pricing</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
@@ -119,18 +121,25 @@ export function Pricing() {
 
         <div className="grid gap-6 lg:grid-cols-3">
           {tiers.map((tier, index) => (
-            <Card
+            <TiltCard
               key={tier.name}
-              className={`relative p-6 backdrop-blur-sm transition-all duration-500 ${
+              tiltAmount={6}
+              glareEnabled={true}
+              className={`transition-all duration-500 ${
+                isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+            >
+            <Card
+              className={`relative p-6 backdrop-blur-md h-full ${
                 tier.highlighted
-                  ? 'bg-card/60 border-brand-500/40 shadow-lg shadow-brand-500/10'
-                  : 'bg-card/40 border-border/40 hover:border-brand-500/30'
-              } ${isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}
+                  ? 'bg-white/8 border-brand-500/40 shadow-lg shadow-brand-500/10'
+                  : 'bg-white/5 border-white/10 hover:border-brand-500/30'
+              }`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="mb-6 flex items-start justify-between gap-3">
                 <div>
-                  <h3 className="text-lg font-semibold mb-2">{tier.name}</h3>
+                  <h3 className="text-lg font-display font-semibold mb-2">{tier.name}</h3>
                   <p className="text-sm text-muted-foreground">{tier.description}</p>
                 </div>
                 {tier.highlighted && (
@@ -167,6 +176,7 @@ export function Pricing() {
                 ))}
               </ul>
             </Card>
+            </TiltCard>
           ))}
         </div>
 

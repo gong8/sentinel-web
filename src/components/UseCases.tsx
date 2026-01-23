@@ -34,16 +34,19 @@ const useCases = [
 
 export function UseCases() {
   return (
-    <section id="use-cases" className="py-28 relative overflow-hidden">
-      {/* Background accents */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-brand-500/5 via-brand-500/10 to-brand-500/5 blur-3xl -z-10 rounded-full" />
+    <section id="use-cases" className="py-28 relative">
+      {/* Background accents with noise */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-brand-500/5 via-brand-500/10 to-brand-500/5 blur-3xl -z-10 rounded-full noise-gradient" />
+
+      {/* Subtle grid */}
+      <div className="absolute inset-0 bg-grid-small opacity-15 -z-10" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Text content */}
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/40 bg-card/30 text-xs mb-6">
-              <span className="text-muted-foreground">Built for teams who ship AI</span>
+              <span className="font-mono text-muted-foreground uppercase tracking-wider">Use Cases</span>
             </div>
 
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-6">
@@ -66,20 +69,19 @@ export function UseCases() {
           </div>
 
           {/* Card swap */}
-          <div className="flex justify-center items-end min-h-[350px] pb-8">
+          <div className="flex justify-center items-end min-h-[350px] pb-8 overflow-visible">
             <CardSwap
               width={340}
               height={200}
               cardDistance={40}
               verticalDistance={45}
-              delay={4000}
+              delay={3000}
               pauseOnHover={true}
-              easing="elastic"
             >
               {useCases.map((useCase) => (
                 <Card
                   key={useCase.title}
-                  className="border-brand-500/20 bg-gradient-to-br from-card/90 to-card/70 p-5 flex flex-col"
+                  className="border-white/15 bg-card/95 p-5 flex flex-col shadow-xl shadow-black/20"
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="h-10 w-10 rounded-lg bg-brand-500/20 flex items-center justify-center">
@@ -90,7 +92,7 @@ export function UseCases() {
                       <div className="text-[10px] text-muted-foreground uppercase tracking-wider">{useCase.statLabel}</div>
                     </div>
                   </div>
-                  <h3 className="text-base font-semibold mb-2">{useCase.title}</h3>
+                  <h3 className="text-base font-display font-semibold mb-2">{useCase.title}</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed flex-1">
                     {useCase.description}
                   </p>

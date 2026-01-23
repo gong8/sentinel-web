@@ -58,12 +58,13 @@ export function Problem() {
       className="py-28 relative overflow-hidden"
       ref={sectionRef as React.RefObject<HTMLElement>}
     >
-      {/* Background accents */}
-      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-red-500/5 to-transparent blur-3xl -z-10" />
-      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-red-500/5 to-transparent blur-3xl -z-10" />
+      {/* Background accents with noise */}
+      <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-gradient-to-br from-red-500/5 to-transparent blur-3xl -z-10 noise-gradient" />
+      <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-gradient-to-tl from-red-500/5 to-transparent blur-3xl -z-10 noise-gradient" />
 
       {/* Grid pattern */}
-      <div className="absolute inset-0 bg-grid-small opacity-15" />
+      <div className="absolute inset-0 bg-grid-small opacity-20" />
+      <div className="absolute inset-0 bg-dots opacity-10" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div
@@ -73,7 +74,7 @@ export function Problem() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-red-500/30 bg-red-500/10 text-xs mb-6">
             <AlertTriangle className="h-3 w-3 text-red-400" />
-            <span className="text-red-400">The Problem</span>
+            <span className="font-mono text-red-400 uppercase tracking-wider">The Problem</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
@@ -122,9 +123,9 @@ export function Problem() {
             <div className="flex items-center gap-3">
               <div className="h-2 w-2 rounded-full bg-red-500 animate-pulse" />
               <span className="text-sm text-muted-foreground">
-                <span className="font-semibold text-red-400">SOC 2</span>,{' '}
-                <span className="font-semibold text-red-400">HIPAA</span>, and{' '}
-                <span className="font-semibold text-red-400">EU AI Act</span>{' '}
+                <span className="font-mono font-semibold text-red-400">SOC 2</span>,{' '}
+                <span className="font-mono font-semibold text-red-400">HIPAA</span>, and{' '}
+                <span className="font-mono font-semibold text-red-400">EU AI Act</span>{' '}
                 requirements cannot be met without agent governance.
               </span>
             </div>

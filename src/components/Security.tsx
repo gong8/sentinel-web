@@ -47,11 +47,12 @@ export function Security() {
       className="py-28 relative overflow-hidden"
       ref={sectionRef as React.RefObject<HTMLElement>}
     >
-      {/* Background accent */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-t from-brand-500/10 via-brand-500/5 to-transparent blur-3xl -z-10" />
+      {/* Background accent with noise */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-t from-brand-500/10 via-brand-500/5 to-transparent blur-3xl -z-10 noise-gradient" />
 
       {/* Grid texture */}
-      <div className="absolute inset-0 bg-grid-small opacity-20" />
+      <div className="absolute inset-0 bg-grid-small opacity-25" />
+      <div className="absolute inset-0 bg-grid-fade opacity-20" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div
@@ -61,7 +62,7 @@ export function Security() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/40 bg-card/30 text-xs mb-6">
             <Shield className="h-3 w-3 text-brand-400" />
-            <span className="text-muted-foreground">Security First</span>
+            <span className="font-mono text-muted-foreground uppercase tracking-wider">Security</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
@@ -85,7 +86,7 @@ export function Security() {
               <Badge
                 key={feature.label}
                 variant="outline"
-                className="group text-sm px-4 py-2.5 bg-card/30 backdrop-blur-sm border-border/40 hover:border-brand-500/40 hover:bg-brand-500/10 transition-all cursor-default flex items-center gap-2"
+                className="group text-sm px-4 py-2.5 bg-white/5 backdrop-blur-md border-white/10 hover:border-brand-500/40 hover:bg-brand-500/10 transition-all cursor-default flex items-center gap-2 shadow-sm shadow-black/5"
                 style={{ transitionDelay: `${index * 50}ms` }}
               >
                 <Icon className="h-3.5 w-3.5 text-brand-400 group-hover:text-brand-300 transition-colors" />
@@ -103,8 +104,9 @@ export function Security() {
             isInView ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
           }`}
         >
-          <div className="relative p-8 rounded-2xl border border-border/30 bg-card/20 backdrop-blur-sm">
-            <div className="absolute inset-0 bg-gradient-to-br from-brand-500/5 to-transparent rounded-2xl" />
+          <div className="relative p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shadow-lg shadow-black/10">
+            <div className="absolute inset-0 bg-gradient-to-br from-brand-500/10 to-transparent rounded-2xl" />
+            <div className="absolute inset-0 rounded-2xl border border-white/5 pointer-events-none" />
 
             <div className="relative grid grid-cols-3 gap-4 text-center">
               <div className="space-y-2">

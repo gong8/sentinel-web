@@ -56,7 +56,7 @@ export function Integrations() {
           <span className="text-sm font-mono text-muted-foreground uppercase tracking-wider">
             Works with your stack
           </span>
-          <h3 className="mt-2 text-2xl font-bold">
+          <h3 className="mt-2 text-2xl font-display font-bold">
             Integrate with <span className="text-gradient">anything</span>
           </h3>
         </div>

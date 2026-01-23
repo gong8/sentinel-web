@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
 import { Problem } from './components/Problem';
@@ -14,16 +15,17 @@ import { Footer } from './components/Footer';
 import { BackToTop } from './components/BackToTop';
 import { Aurora } from './components/Aurora';
 import { UseCases } from './components/UseCases';
+import { DesignPartner } from './pages/DesignPartner';
 
-export default function App() {
+function HomePage() {
   return (
-    <div className="min-h-screen relative">
+    <div className="min-h-screen relative noise-overlay">
       <div className="absolute top-0 left-0 w-full h-screen -z-20 opacity-60 overflow-hidden pointer-events-none">
         <Aurora
-          colorStops={['#4E00FF', '#2563eb', '#4E00FF']}
-          amplitude={0.6}
-          blend={0.5}
-          speed={0.6}
+          colorStops={['#4E00FF', '#517fdc', '#7b00ff']}
+          amplitude={0.7}
+          blend={0.7}
+          speed={0.9}
         />
       </div>
       <Header />
@@ -44,5 +46,16 @@ export default function App() {
       <Footer />
       <BackToTop />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/design-partner" element={<DesignPartner />} />
+      </Routes>
+    </BrowserRouter>
   );
 }

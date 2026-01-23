@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { EmailSignup } from './EmailSignup';
 
@@ -35,11 +36,12 @@ export function CTA() {
       className="py-32 relative overflow-hidden"
       ref={ref as React.RefObject<HTMLElement>}
     >
-      {/* Background glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-r from-brand-500/15 via-brand-500/10 to-brand-500/15 blur-3xl -z-10 rounded-full" />
+      {/* Background glow with noise */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-r from-brand-500/15 via-brand-500/10 to-brand-500/15 blur-3xl -z-10 rounded-full noise-gradient" />
 
       {/* Grid background */}
-      <div className="absolute inset-0 bg-grid opacity-20" />
+      <div className="absolute inset-0 bg-grid opacity-15" />
+      <div className="absolute inset-0 bg-grid-fade opacity-25" />
 
       {/* Floating capsule decoration - balanced positioning */}
       <div className="absolute top-[15%] left-[8%] opacity-[0.04] rotate-[-15deg] animate-float-slow">
@@ -74,9 +76,11 @@ export function CTA() {
               isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
-            <Button size="lg" className="text-base px-10 py-6">
-              Become a Design Partner
-            </Button>
+            <Link to="/design-partner">
+              <Button size="lg" className="text-base px-10 py-6">
+                Become a Design Partner
+              </Button>
+            </Link>
           </div>
 
           <div

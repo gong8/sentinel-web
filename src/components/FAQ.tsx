@@ -95,7 +95,7 @@ function AccordionItem({
         onClick={onToggle}
         className="w-full py-5 flex items-center justify-between gap-4 text-left group"
       >
-        <span className="text-sm font-medium group-hover:text-brand-300 transition-colors">
+        <span className="text-sm font-mono font-medium group-hover:text-brand-300 transition-colors">
           {question}
         </span>
         <ChevronDown
@@ -143,7 +143,7 @@ export function FAQ() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/40 bg-card/30 text-xs mb-6">
             <HelpCircle className="h-3 w-3 text-brand-400" />
-            <span className="text-muted-foreground">Common Questions</span>
+            <span className="font-mono text-muted-foreground uppercase tracking-wider">FAQ</span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
