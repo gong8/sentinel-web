@@ -20,9 +20,8 @@ export const stripeConfig = {
    * - Enable "Let customers adjust quantity"
    * - Set minimum quantity to 3
    * - Success URL: https://yoursite.com/checkout/success
-   * - Cancel URL: https://yoursite.com/checkout/cancel
    */
-  paymentLink: 'https://buy.stripe.com/YOUR_PAYMENT_LINK_ID',
+  paymentLink: 'https://buy.stripe.com/test_4gMeVf77dfKJbqE3D283C00',
 
   /**
    * Optional: Stripe Customer Portal link for managing subscriptions
