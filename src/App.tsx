@@ -16,6 +16,8 @@ import { BackToTop } from './components/BackToTop';
 import { Aurora } from './components/Aurora';
 import { UseCases } from './components/UseCases';
 import { DesignPartner } from './pages/DesignPartner';
+import { CheckoutSuccess } from './pages/CheckoutSuccess';
+import { CheckoutCancel } from './pages/CheckoutCancel';
 
 function HomePage() {
   return (
@@ -55,6 +57,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/design-partner" element={<DesignPartner />} />
+        <Route path="/checkout/success" element={<CheckoutSuccess />} />
+        <Route path="/checkout/cancel" element={<CheckoutCancel />} />
       </Routes>
     </BrowserRouter>
   );

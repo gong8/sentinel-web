@@ -1,62 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
-import { Check, Sparkles } from 'lucide-react';
+import { Check, Sparkles, Loader2 } from 'lucide-react';
 import { TiltCard } from './TiltCard';
-
-const tiers = [
-  {
-    name: 'Free',
-    description: 'Get started with AI agent governance. No credit card required.',
-    price: 'Free',
-    priceDetail: 'forever',
-    features: [
-      'Up to 3 users',
-      '3 MCP servers',
-      'DENY-first policy engine',
-      'Complete audit logging',
-      '7-day log retention',
-      'Community support',
-    ],
-    cta: 'Get Started',
-    highlighted: false,
-  },
-  {
-    name: 'Team',
-    description: 'For teams deploying agents in production with compliance needs.',
-    price: 'TBD',
-    priceDetail: 'per month',
-    features: [
-      'Up to 10 users',
-      '10 MCP servers',
-      'A2A agent support',
-      'Approval workflows',
-      'Webhook alerts',
-      '90-day log retention',
-      'Priority support',
-    ],
-    cta: 'Join Waitlist',
-    highlighted: true,
-  },
-  {
-    name: 'Enterprise',
-    description: 'For organisations with advanced security and compliance requirements.',
-    price: 'Custom',
-    priceDetail: 'contact us',
-    features: [
-      'Unlimited users',
-      'Unlimited servers',
-      'SSO (SAML/OIDC)',
-      'Self-hosted deployment',
-      '1-year+ log retention',
-      'SLA guarantee',
-      'Dedicated support',
-      'Custom integrations',
-    ],
-    cta: 'Talk to Us',
-    highlighted: false,
-  },
-];
+import {
+  pricingTiers,
+  pricingUIText,
+  getTierAction,
+  type PricingTier,
+} from '../config/pricing.config';
 
 function useInView() {
   const ref = useRef<HTMLElement>(null);
@@ -81,6 +33,51 @@ function useInView() {
   }, []);
 
   return { ref, isInView };
+}
+
+function PricingButton({
+  tier,
+  className,
+}: {
+  tier: PricingTier;
+  className?: string;
+}) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleClick = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+    try {
+      const action = getTierAction(tier);
+      action();
+    } finally {
+      // Only reset if we haven't navigated away
+      setTimeout(() => setIsLoading(false), 1000);
+    }
+  };
+
+  return (
+    <Button
+      onClick={handleClick}
+      disabled={isLoading}
+      className={`w-full mb-6 ${className} ${
+        tier.highlighted
+          ? ''
+          : 'bg-card border border-border/50 text-foreground hover:bg-card/80 hover:border-brand-500/30'
+      }`}
+      variant={tier.highlighted ? 'default' : 'outline'}
+    >
+      {isLoading ? (
+        <>
+          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          Loading...
+        </>
+      ) : (
+        tier.cta
+      )}
+    </Button>
+  );
 }
 
 export function Pricing() {
@@ -108,74 +105,71 @@ export function Pricing() {
         >
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border/40 bg-card/30 text-xs mb-6">
             <Sparkles className="h-3 w-3 text-brand-400" />
-            <span className="font-mono text-muted-foreground uppercase tracking-wider">Pricing</span>
+            <span className="font-mono text-muted-foreground uppercase tracking-wider">
+              {pricingUIText.sectionBadge}
+            </span>
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">
-            Start free, <span className="text-gradient">scale when ready</span>
+            {pricingUIText.headline}{' '}
+            <span className="text-gradient">{pricingUIText.headlineHighlight}</span>
           </h2>
           <p className="mt-6 text-lg text-muted-foreground">
-            Get started with our free tier. Upgrade as your agent infrastructure grows.
+            {pricingUIText.subheadline}
           </p>
         </div>
 
         <div className="grid gap-6 lg:grid-cols-3">
-          {tiers.map((tier, index) => (
+          {pricingTiers.map((tier, index) => (
             <TiltCard
-              key={tier.name}
+              key={tier.id}
               tiltAmount={6}
               glareEnabled={true}
               className={`transition-all duration-500 ${
                 isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
             >
-            <Card
-              className={`relative p-6 backdrop-blur-md h-full ${
-                tier.highlighted
-                  ? 'bg-white/8 border-brand-500/40 shadow-lg shadow-brand-500/10'
-                  : 'bg-white/5 border-white/10 hover:border-brand-500/30'
-              }`}
-              style={{ transitionDelay: `${index * 150}ms` }}
-            >
-              <div className="mb-6 flex items-start justify-between gap-3">
-                <div>
-                  <h3 className="text-lg font-display font-semibold mb-2">{tier.name}</h3>
-                  <p className="text-sm text-muted-foreground">{tier.description}</p>
-                </div>
-                {tier.highlighted && (
-                  <span className="shrink-0 inline-block px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider bg-brand-500 text-white rounded-full">
-                    Popular
-                  </span>
-                )}
-              </div>
-
-              <div className="mb-6">
-                <div className="flex items-baseline gap-1">
-                  <span className="text-4xl font-display font-bold">{tier.price}</span>
-                  <span className="text-sm text-muted-foreground">{tier.priceDetail}</span>
-                </div>
-              </div>
-
-              <Button
-                className={`w-full mb-6 ${
+              <Card
+                className={`relative p-6 backdrop-blur-md h-full ${
                   tier.highlighted
-                    ? ''
-                    : 'bg-card border border-border/50 text-foreground hover:bg-card/80 hover:border-brand-500/30'
+                    ? 'bg-white/8 border-brand-500/40 shadow-lg shadow-brand-500/10'
+                    : 'bg-white/5 border-white/10 hover:border-brand-500/30'
                 }`}
-                variant={tier.highlighted ? 'default' : 'outline'}
+                style={{ transitionDelay: `${index * 150}ms` }}
               >
-                {tier.cta}
-              </Button>
+                <div className="mb-6 flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-lg font-display font-semibold mb-2">{tier.name}</h3>
+                    <p className="text-sm text-muted-foreground">{tier.description}</p>
+                  </div>
+                  {tier.highlighted && (
+                    <span className="shrink-0 inline-block px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wider bg-brand-500 text-white rounded-full">
+                      Popular
+                    </span>
+                  )}
+                </div>
 
-              <ul className="space-y-3">
-                {tier.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3 text-sm">
-                    <Check className="h-4 w-4 text-brand-400 shrink-0 mt-0.5" />
-                    <span className="text-muted-foreground">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
+                <div className="mb-6">
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-4xl font-display font-bold">{tier.price}</span>
+                    <span className="text-sm text-muted-foreground">{tier.priceDetail}</span>
+                  </div>
+                  {tier.priceSubtext && (
+                    <p className="text-xs text-muted-foreground mt-1">{tier.priceSubtext}</p>
+                  )}
+                </div>
+
+                <PricingButton tier={tier} />
+
+                <ul className="space-y-3">
+                  {tier.features.map((feature) => (
+                    <li key={feature} className="flex items-start gap-3 text-sm">
+                      <Check className="h-4 w-4 text-brand-400 shrink-0 mt-0.5" />
+                      <span className="text-muted-foreground">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </Card>
             </TiltCard>
           ))}
         </div>
@@ -185,7 +179,7 @@ export function Pricing() {
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          All plans include encrypted credentials, DENY-first policies, and complete audit logging.
+          {pricingUIText.footer}
         </p>
       </div>
     </section>
