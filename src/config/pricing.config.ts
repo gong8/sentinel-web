@@ -11,17 +11,13 @@
 
 export const stripeConfig = {
   /**
-   * Stripe Payment Link URL
+   * Stripe Payment Link URLs
    * Create in Stripe Dashboard: https://dashboard.stripe.com/payment-links
-   *
-   * Settings to configure:
-   * - Product: "SENTINEL Team"
-   * - Price: $15/seat/month (recurring subscription)
-   * - Enable "Let customers adjust quantity"
-   * - Set minimum quantity to 3
-   * - Success URL: https://yoursite.com/checkout/success
    */
-  paymentLink: 'https://buy.stripe.com/test_4gMeVf77dfKJbqE3D283C00',
+  paymentLinks: {
+    monthly: 'https://buy.stripe.com/test_4gMeVf77dfKJbqE3D283C00', // TODO: Update with your monthly link
+    yearly: 'https://buy.stripe.com/test_YEARLY_LINK_HERE', // TODO: Update with your yearly link
+  },
 
   /**
    * Optional: Stripe Customer Portal link for managing subscriptions
@@ -50,7 +46,9 @@ export interface PricingTier {
   name: string;
   description: string;
   price: string;
+  priceYearly?: string;
   priceDetail: string;
+  priceDetailYearly?: string;
   priceSubtext?: string;
   features: string[];
   cta: string;
@@ -81,9 +79,11 @@ export const pricingTiers: PricingTier[] = [
     id: 'team',
     name: 'Team',
     description: 'For teams deploying agents in production with compliance needs.',
-    price: '$15',
-    priceDetail: 'per user/month',
-    priceSubtext: '3 seat minimum',
+    price: '£15',
+    priceYearly: '£150',
+    priceDetail: 'per seat/month',
+    priceDetailYearly: 'per seat/year',
+    priceSubtext: '3 seat minimum • Save 17% with yearly',
     features: [
       'Per-seat pricing',
       '10 MCP servers',
@@ -210,10 +210,12 @@ export const pricingUIText = {
 // HELPER FUNCTIONS
 // =============================================================================
 
+export type BillingPeriod = 'monthly' | 'yearly';
+
 /**
  * Get the CTA action function for a tier
  */
-export function getTierAction(tier: PricingTier): () => void {
+export function getTierAction(tier: PricingTier, billingPeriod: BillingPeriod = 'monthly'): () => void {
   switch (tier.ctaType) {
     case 'github':
       return () => {
@@ -221,7 +223,7 @@ export function getTierAction(tier: PricingTier): () => void {
       };
     case 'stripe':
       return () => {
-        window.location.href = stripeConfig.paymentLink;
+        window.location.href = stripeConfig.paymentLinks[billingPeriod];
       };
     case 'email':
       return () => {

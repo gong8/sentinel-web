@@ -8,6 +8,7 @@ import {
   pricingUIText,
   getTierAction,
   type PricingTier,
+  type BillingPeriod,
 } from '../config/pricing.config';
 
 function useInView() {
@@ -37,9 +38,11 @@ function useInView() {
 
 function PricingButton({
   tier,
+  billingPeriod,
   className,
 }: {
   tier: PricingTier;
+  billingPeriod: BillingPeriod;
   className?: string;
 }) {
   const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +52,7 @@ function PricingButton({
 
     setIsLoading(true);
     try {
-      const action = getTierAction(tier);
+      const action = getTierAction(tier, billingPeriod);
       action();
     } finally {
       // Only reset if we haven't navigated away
@@ -80,8 +83,49 @@ function PricingButton({
   );
 }
 
+function BillingToggle({
+  billingPeriod,
+  onChange,
+}: {
+  billingPeriod: BillingPeriod;
+  onChange: (period: BillingPeriod) => void;
+}) {
+  return (
+    <div className="flex items-center justify-center gap-3 mb-12">
+      <button
+        onClick={() => onChange('monthly')}
+        className={`px-4 py-2 text-sm font-medium rounded-lg transition-all ${
+          billingPeriod === 'monthly'
+            ? 'bg-brand-500 text-white'
+            : 'bg-card/50 text-muted-foreground hover:text-foreground'
+        }`}
+      >
+        Monthly
+      </button>
+      <button
+        onClick={() => onChange('yearly')}
+        className={`px-4 py-2 text-sm font-medium rounded-lg transition-all flex items-center gap-2 ${
+          billingPeriod === 'yearly'
+            ? 'bg-brand-500 text-white'
+            : 'bg-card/50 text-muted-foreground hover:text-foreground'
+        }`}
+      >
+        Yearly
+        <span className={`text-xs px-1.5 py-0.5 rounded ${
+          billingPeriod === 'yearly'
+            ? 'bg-white/20'
+            : 'bg-brand-500/20 text-brand-400'
+        }`}>
+          Save 17%
+        </span>
+      </button>
+    </div>
+  );
+}
+
 export function Pricing() {
   const { ref, isInView } = useInView();
+  const [billingPeriod, setBillingPeriod] = useState<BillingPeriod>('monthly');
 
   return (
     <section
@@ -119,6 +163,8 @@ export function Pricing() {
           </p>
         </div>
 
+        <BillingToggle billingPeriod={billingPeriod} onChange={setBillingPeriod} />
+
         <div className="grid gap-6 lg:grid-cols-3">
           {pricingTiers.map((tier, index) => (
             <TiltCard
@@ -151,15 +197,19 @@ export function Pricing() {
 
                 <div className="mb-6">
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-display font-bold">{tier.price}</span>
-                    <span className="text-sm text-muted-foreground">{tier.priceDetail}</span>
+                    <span className="text-4xl font-display font-bold">
+                      {billingPeriod === 'yearly' && tier.priceYearly ? tier.priceYearly : tier.price}
+                    </span>
+                    <span className="text-sm text-muted-foreground">
+                      {billingPeriod === 'yearly' && tier.priceDetailYearly ? tier.priceDetailYearly : tier.priceDetail}
+                    </span>
                   </div>
                   {tier.priceSubtext && (
                     <p className="text-xs text-muted-foreground mt-1">{tier.priceSubtext}</p>
                   )}
                 </div>
 
-                <PricingButton tier={tier} />
+                <PricingButton tier={tier} billingPeriod={billingPeriod} />
 
                 <ul className="space-y-3">
                   {tier.features.map((feature) => (
