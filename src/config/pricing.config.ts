@@ -15,8 +15,8 @@ export const stripeConfig = {
    * Create in Stripe Dashboard: https://dashboard.stripe.com/payment-links
    */
   paymentLinks: {
-    monthly: 'https://buy.stripe.com/test_4gMeVf77dfKJbqE3D283C00',
-    yearly: 'https://buy.stripe.com/test_bJe9AV0IP0PP9iw8Xm83C01',
+    monthly: 'https://buy.stripe.com/test_eVqdRbdvB1TT0M0flK83C02',
+    yearly: 'https://buy.stripe.com/test_cNi6oJfDJ6a9cuIb5u83C03',
   },
 
   /**
@@ -79,11 +79,11 @@ export const pricingTiers: PricingTier[] = [
     id: 'team',
     name: 'Team',
     description: 'For teams deploying agents in production with compliance needs.',
-    price: '£15',
-    priceYearly: '£150',
+    price: '$15',
+    priceYearly: '$150',
     priceDetail: 'per seat/month',
     priceDetailYearly: 'per seat/year',
-    priceSubtext: '3 seat minimum • Save 17% with yearly',
+    priceSubtext: '3 seat minimum • Save 17% yearly',
     features: [
       'Per-seat pricing',
       '10 MCP servers',
