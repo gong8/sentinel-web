@@ -15,8 +15,8 @@ export const stripeConfig = {
    * Create in Stripe Dashboard: https://dashboard.stripe.com/payment-links
    */
   paymentLinks: {
-    monthly: 'https://buy.stripe.com/test_4gMeVf77dfKJbqE3D283C00', // TODO: Update with your monthly link
-    yearly: 'https://buy.stripe.com/test_YEARLY_LINK_HERE', // TODO: Update with your yearly link
+    monthly: 'https://buy.stripe.com/test_4gMeVf77dfKJbqE3D283C00',
+    yearly: 'https://buy.stripe.com/test_bJe9AV0IP0PP9iw8Xm83C01',
   },
 
   /**
