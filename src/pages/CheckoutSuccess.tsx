@@ -66,12 +66,12 @@ export function CheckoutSuccess() {
           </a>
 
           <a
-            href={contactConfig.githubQuickStartUrl}
+            href={contactConfig.docsUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center justify-center w-full h-11 px-6 py-2 rounded-xl text-sm font-semibold border border-border/50 bg-transparent text-foreground hover:bg-brand-500/10 hover:border-brand-500/30 hover:text-brand-300 transition-all duration-200"
           >
-            View Installation Guide
+            View Documentation
             <ArrowRight className="w-4 h-4 ml-2" />
           </a>
 

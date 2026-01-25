@@ -38,7 +38,7 @@ export const contactConfig = {
   salesEmail: 'hello@sentinel.dev',
   supportEmail: 'hello@sentinel.dev',
   githubReleasesUrl: 'https://github.com/gong8/sentinel/releases',
-  githubQuickStartUrl: 'https://github.com/gong8/sentinel#quick-start',
+  docsUrl: 'https://docs.sentinel.london',
 };
 
 // =============================================================================
