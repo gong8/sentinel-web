@@ -79,6 +79,8 @@ function PricingCard({
   return (
     <Card
       className={`relative p-6 backdrop-blur-md cursor-pointer transition-all duration-200 ${
+        tier.highlighted ? 'overflow-visible' : ''
+      } ${
         isSelected
           ? 'bg-brand-500/10 border-brand-500/50 shadow-lg shadow-brand-500/10'
           : tier.highlighted
@@ -213,7 +215,7 @@ export function Upgrade() {
         <BillingToggle billingPeriod={billingPeriod} onChange={setBillingPeriod} />
 
         {/* Pricing Cards */}
-        <div className="grid gap-6 md:grid-cols-3 mb-12">
+        <div className="grid gap-6 md:grid-cols-3 mb-12 pt-4">
           {pricingTiers.map((tier) => (
             <PricingCard
               key={tier.id}

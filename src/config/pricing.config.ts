@@ -27,10 +27,9 @@ export const stripeConfig = {
    * Stripe Customer Portal link for managing subscriptions
    * Create in Stripe Dashboard: https://dashboard.stripe.com/settings/billing/portal
    *
-   * For production, replace with your portal link:
-   * customerPortalLink: 'https://billing.stripe.com/p/login/YOUR_PORTAL_ID',
+   * REQUIRED: Replace with your actual portal link from Stripe Dashboard
    */
-  customerPortalLink: 'https://billing.stripe.com/p/login/test_00g3dW2jOfLF5Zy5kk',
+  customerPortalLink: 'https://billing.stripe.com/p/login/test_4gMeVf77dfKJbqE3D283C00',
 };
 
 // =============================================================================
