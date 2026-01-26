@@ -13,6 +13,10 @@ export const stripeConfig = {
   /**
    * Stripe Payment Link URLs
    * Create in Stripe Dashboard: https://dashboard.stripe.com/payment-links
+   *
+   * For production, replace with live payment links:
+   * monthly: 'https://buy.stripe.com/live_XXXXXX',
+   * yearly: 'https://buy.stripe.com/live_YYYYYY',
    */
   paymentLinks: {
     monthly: 'https://buy.stripe.com/test_eVqdRbdvB1TT0M0flK83C02',
@@ -20,10 +24,13 @@ export const stripeConfig = {
   },
 
   /**
-   * Optional: Stripe Customer Portal link for managing subscriptions
+   * Stripe Customer Portal link for managing subscriptions
    * Create in Stripe Dashboard: https://dashboard.stripe.com/settings/billing/portal
+   *
+   * For production, replace with your portal link:
+   * customerPortalLink: 'https://billing.stripe.com/p/login/YOUR_PORTAL_ID',
    */
-  customerPortalLink: 'https://billing.stripe.com/p/login/YOUR_PORTAL_ID',
+  customerPortalLink: 'https://billing.stripe.com/p/login/test_00g3dW2jOfLF5Zy5kk',
 };
 
 // =============================================================================

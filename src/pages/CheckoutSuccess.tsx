@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSearchParams, Link } from 'react-router-dom';
-import { CheckCircle, Download, Mail, ArrowRight } from 'lucide-react';
+import { CheckCircle, Download, Mail, ArrowRight, CreditCard } from 'lucide-react';
 import { Card } from '../components/ui/card';
 import { contactConfig } from '../config/pricing.config';
 
@@ -52,6 +52,16 @@ export function CheckoutSuccess() {
               </p>
             </div>
           </div>
+
+          <div className="flex items-start gap-3 text-left p-4 rounded-lg bg-muted/50">
+            <CreditCard className="w-5 h-5 text-brand-400 shrink-0 mt-0.5" />
+            <div>
+              <p className="font-medium text-sm">Manage Your Subscription</p>
+              <p className="text-xs text-muted-foreground">
+                Update payment methods, view invoices, or modify your plan anytime.
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="space-y-3">
@@ -74,6 +84,14 @@ export function CheckoutSuccess() {
             View Documentation
             <ArrowRight className="w-4 h-4 ml-2" />
           </a>
+
+          <Link
+            to="/billing"
+            className="flex items-center justify-center w-full h-11 px-6 py-2 rounded-xl text-sm font-semibold border border-border/50 bg-transparent text-foreground hover:bg-brand-500/10 hover:border-brand-500/30 hover:text-brand-300 transition-all duration-200"
+          >
+            <CreditCard className="w-4 h-4 mr-2" />
+            Manage Billing
+          </Link>
 
           <Link
             to="/"

@@ -18,6 +18,8 @@ import { UseCases } from './components/UseCases';
 import { DesignPartner } from './pages/DesignPartner';
 import { CheckoutSuccess } from './pages/CheckoutSuccess';
 import { CheckoutCancel } from './pages/CheckoutCancel';
+import { Upgrade } from './pages/Upgrade';
+import { Billing } from './pages/Billing';
 
 function HomePage() {
   return (
@@ -59,6 +61,8 @@ export default function App() {
         <Route path="/design-partner" element={<DesignPartner />} />
         <Route path="/checkout/success" element={<CheckoutSuccess />} />
         <Route path="/checkout/cancel" element={<CheckoutCancel />} />
+        <Route path="/upgrade" element={<Upgrade />} />
+        <Route path="/billing" element={<Billing />} />
       </Routes>
     </BrowserRouter>
   );
