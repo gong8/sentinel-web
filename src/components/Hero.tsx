@@ -78,7 +78,7 @@ export function Hero() {
               <div className="flex-1 mx-4">
                 <div className="h-6 w-72 rounded-md bg-muted/50 border border-border/50 mx-auto flex items-center justify-center px-3">
                   <span className="text-xs text-muted-foreground font-mono">
-                    app.sentinel.dev/admin/dashboard
+                    app.sentinel.london/admin/dashboard
                   </span>
                 </div>
               </div>

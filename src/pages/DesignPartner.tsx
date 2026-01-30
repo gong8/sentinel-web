@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
-import { ArrowLeft, Send, CheckCircle, Building2, Users, Cpu, Shield } from 'lucide-react';
+import { ArrowLeft, Send, CheckCircle, Building2, Users, Cpu, Shield, Loader2, AlertCircle } from 'lucide-react';
 
 function useInView(delay = 0) {
   const ref = useRef<HTMLElement>(null);
@@ -20,6 +20,8 @@ function useInView(delay = 0) {
 
 export function DesignPartner() {
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -36,9 +38,32 @@ export function DesignPartner() {
   const { isInView: benefitsVisible } = useInView(400);
   const { isInView: formVisible } = useInView(350);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsLoading(true);
+    setError(null);
+
+    try {
+      const response = await fetch('/api/partner-application', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to submit application');
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -265,9 +290,25 @@ export function DesignPartner() {
                   />
                 </div>
 
-                <Button type="submit" className="w-full group" size="lg">
-                  <Send className="w-4 h-4 mr-2 transition-transform group-hover:translate-x-0.5" />
-                  Submit Application
+                {error && (
+                  <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-sm">
+                    <AlertCircle className="w-4 h-4 shrink-0" />
+                    <span>{error}</span>
+                  </div>
+                )}
+
+                <Button type="submit" className="w-full group" size="lg" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Submitting...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-4 h-4 mr-2 transition-transform group-hover:translate-x-0.5" />
+                      Submit Application
+                    </>
+                  )}
                 </Button>
 
                 <p className="text-xs text-muted-foreground text-center">

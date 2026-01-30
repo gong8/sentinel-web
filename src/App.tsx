@@ -20,6 +20,7 @@ import { CheckoutSuccess } from './pages/CheckoutSuccess';
 import { CheckoutCancel } from './pages/CheckoutCancel';
 import { Upgrade } from './pages/Upgrade';
 import { Billing } from './pages/Billing';
+import { ExitSurvey } from './pages/ExitSurvey';
 
 function HomePage() {
   return (
@@ -63,6 +64,7 @@ export default function App() {
         <Route path="/checkout/cancel" element={<CheckoutCancel />} />
         <Route path="/upgrade" element={<Upgrade />} />
         <Route path="/billing" element={<Billing />} />
+        <Route path="/exit-survey" element={<ExitSurvey />} />
       </Routes>
     </BrowserRouter>
   );

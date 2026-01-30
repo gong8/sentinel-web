@@ -37,8 +37,8 @@ export const stripeConfig = {
 // =============================================================================
 
 export const contactConfig = {
-  salesEmail: 'hello@sentinel.dev',
-  supportEmail: 'hello@sentinel.dev',
+  salesEmail: 'hello@sentinel.london',
+  supportEmail: 'hello@sentinel.london',
   githubReleasesUrl: 'https://github.com/gong8/sentinel/releases',
   docsUrl: 'https://docs.sentinel.london',
 };
