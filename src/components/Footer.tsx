@@ -89,6 +89,12 @@ export function Footer() {
             >
               FAQ
             </a>
+            <a
+              href="/billing"
+              className="text-muted-foreground hover:text-brand-400 transition-colors"
+            >
+              Billing
+            </a>
           </div>
         </div>
 
