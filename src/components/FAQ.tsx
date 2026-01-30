@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronDown, HelpCircle } from 'lucide-react';
+import { contactConfig } from '../config/pricing.config';
 
 const faqs = [
   {
@@ -174,7 +175,10 @@ export function FAQ() {
           }`}
         >
           Still have questions?{' '}
-          <a href="#" className="text-brand-400 hover:text-brand-300 transition-colors">
+          <a
+            href={`mailto:${contactConfig.supportEmail}?subject=Question%20about%20Sentinel`}
+            className="text-brand-400 hover:text-brand-300 transition-colors"
+          >
             Contact us
           </a>
         </p>
